@@ -1,0 +1,7 @@
+# Keep owner-only editorial planning out of public source archives.
+app/studio export-ignore
+app/content/social.ts export-ignore
+public/images/social export-ignore
+public/images/landing/studio.webp export-ignore
+image-manifests/social-s01-s18.md export-ignore
+image-manifests/social-s19-s36.md export-ignore
