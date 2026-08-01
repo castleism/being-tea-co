@@ -41,6 +41,9 @@ export function SiteFooter() {
         <a href={SOCIAL_LINKS.x} target="_blank" rel="noreferrer">
           X
         </a>
+        <a href={SOCIAL_LINKS.aliaspaces} target="_blank" rel="noreferrer">
+          Brother Kāruṇya
+        </a>
         <a href={SOCIAL_LINKS.archive} target="_blank" rel="noreferrer">
           Archive
         </a>

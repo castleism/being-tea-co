@@ -10,6 +10,7 @@ export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/beingteaco/",
   x: "https://x.com/BeingTeaCo",
   youtube: "https://www.youtube.com/@BeingTeaCo",
+  aliaspaces: "https://mypersonas.online/#/p/brother_karunya",
   archive: "https://beingteaco.wordpress.com/",
 } as const;
 

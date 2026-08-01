@@ -26,6 +26,7 @@ const organizationJsonLd = {
     SOCIAL_LINKS.instagram,
     SOCIAL_LINKS.x,
     SOCIAL_LINKS.youtube,
+    SOCIAL_LINKS.aliaspaces,
     SOCIAL_LINKS.archive,
   ],
 };
@@ -233,6 +234,65 @@ export default function Home() {
             <strong>Creating Space</strong>
             <b aria-hidden="true">↗</b>
           </a>
+        </div>
+      </section>
+
+      <section className="social-launch" aria-labelledby="social-launch-title">
+        <div className="social-launch-intro">
+          <p className="section-kicker">A new public room</p>
+          <h2 id="social-launch-title">Meet Brother Kāruṇya.</h2>
+          <p>
+            Being Tea Co.&apos;s public social persona for field notes, brewing
+            observations, and community questions—shared by an independent tea
+            practitioner and host.
+          </p>
+          <a
+            className="primary-button"
+            href={SOCIAL_LINKS.aliaspaces}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Visit @brother_karunya <span aria-hidden="true">↗</span>
+          </a>
+          <small>AliaSpaces · the MyPersonas social network</small>
+        </div>
+        <div className="social-launch-notes">
+          <article>
+            <span>01</span>
+            <div>
+              <h3>Independent practice</h3>
+              <p>
+                Brother Kāruṇya is a public persona, not a representative of a
+                monastery, lineage, or institution.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span>02</span>
+            <div>
+              <h3>AI assistance, disclosed</h3>
+              <p>
+                Some social visuals or draft captions may be created with AI
+                assistance. AI-created concepts are labeled, and a person
+                reviews what is published.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span>03</span>
+            <div>
+              <h3>Commercial links</h3>
+              <p>
+                No paid affiliate product links are active today. If a future
+                post includes one, it will be labeled near the link, and Being
+                Tea Co. may earn a commission at no additional cost to the
+                buyer.
+              </p>
+              <Link className="text-link light" href="/disclosures">
+                Read the full disclosures
+              </Link>
+            </div>
+          </article>
         </div>
       </section>
 

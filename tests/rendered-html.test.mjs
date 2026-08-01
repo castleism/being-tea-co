@@ -45,6 +45,16 @@ test("server-renders the finished Being Tea Co. home page", async () => {
   assert.doesNotMatch(html, /Your site is taking shape|Building your site/);
 });
 
+test("home launches the Brother Kāruṇya profile with clear disclosures", async () => {
+  const html = await htmlFor("/");
+
+  assert.match(html, /https:\/\/mypersonas\.online\/#\/p\/brother_karunya/);
+  assert.match(html, /AI assistance, disclosed/);
+  assert.match(html, /a person reviews what is published/);
+  assert.match(html, /No paid affiliate product links are active today/);
+  assert.match(html, /not a representative of a monastery, lineage, or institution/);
+});
+
 test("tea and brew library buttons each reference a unique image", async () => {
   const [learn, brew] = await Promise.all([htmlFor("/learn"), htmlFor("/brew")]);
 

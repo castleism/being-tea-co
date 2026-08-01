@@ -88,6 +88,7 @@ export default function ContactPage() {
           <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer">Instagram <span>↗</span></a>
           <a href={SOCIAL_LINKS.x} target="_blank" rel="noreferrer">X / Twitter <span>↗</span></a>
           <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noreferrer">YouTube <span>↗</span></a>
+          <a href={SOCIAL_LINKS.aliaspaces} target="_blank" rel="noreferrer">Brother Kāruṇya on AliaSpaces <span>↗</span></a>
           <a href={SOCIAL_LINKS.archive} target="_blank" rel="noreferrer">2015 archive <span>↗</span></a>
         </div>
       </section>
