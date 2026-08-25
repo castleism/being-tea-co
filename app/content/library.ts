@@ -120,7 +120,7 @@ export const teaFamilies: TeaFamily[] = [
       "Use an airtight, opaque, odor-free container in a cool, dry place. Black tea is often stable, but it is not immune to stale air, moisture or kitchen odors.",
     questions: ["Orthodox leaf or CTC?", "What origin and harvest?", "Are grade letters being used as size descriptors or unsupported quality claims?"],
     sources: [
-      { label: "Tea Association of the USA fact sheet", url: "https://teausa.org/teausa/images/Tea_Association_Fact_Sheet_2024.pdf" },
+      { label: "Tea Association of the USA fact sheet", url: "https://www.teausa.org/tea-fact-sheet" },
       { label: "Tea and Herbal Association of Canada", url: "https://www.tea.ca/learn/tea/tea-types/" },
     ],
   },

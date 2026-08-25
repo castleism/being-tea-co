@@ -38,7 +38,7 @@ export const blogs = [
       },
       {
         "heading": "A better first question",
-        "markdown": "When meeting an unfamiliar tea, begin with five questions:\n\n1. What plant material is this—tea or a tisane?\n2. Where was it grown?\n3. When and how was it harvested?\n4. What processing path did it take?\n5. How does the seller know?\n\nThose questions are more useful than asking whether a tea is “fancy.” They move attention from marketing language toward plant, place, labor, and craft.\n\nThe Food and Agriculture Organization reports that tea supports millions of growers, workers, and families, with smallholders producing a major share of the world’s tea ([FAO International Tea Day](https://www.fao.org/international-tea-day/home/international-tea-day-2025/en)). Every finished leaf therefore carries both a biological story and a human one.\n\nThe next time six teas look impossibly different, place them side by side. Notice their shapes. Smell the dry leaves. Add water and compare the opened leaf. The lesson is not that all tea is the same. It is that astonishing difference can begin from one living plant."
+        "markdown": "When meeting an unfamiliar tea, begin with five questions:\n\n1. What plant material is this—tea or a tisane?\n2. Where was it grown?\n3. When and how was it harvested?\n4. What processing path did it take?\n5. How does the seller know?\n\nThose questions are more useful than asking whether a tea is “fancy.” They move attention from marketing language toward plant, place, labor, and craft.\n\nThe Food and Agriculture Organization reports that tea supports millions of growers, workers, and families, with smallholders producing a major share of the world’s tea ([FAO International Tea Day](https://www.fao.org/international-tea-day/en)). Every finished leaf therefore carries both a biological story and a human one.\n\nThe next time six teas look impossibly different, place them side by side. Notice their shapes. Smell the dry leaves. Add water and compare the opened leaf. The lesson is not that all tea is the same. It is that astonishing difference can begin from one living plant."
       }
     ],
     "sourceLinks": [
@@ -56,7 +56,7 @@ export const blogs = [
       },
       {
         "label": "FAO — International Tea Day",
-        "url": "https://www.fao.org/international-tea-day/home/international-tea-day-2025/en"
+        "url": "https://www.fao.org/international-tea-day/en"
       }
     ],
     "imageKey": "b01",
@@ -140,7 +140,7 @@ export const blogs = [
       },
       {
         "heading": "1. Plant and place",
-        "markdown": "*Camellia sinensis* is an evergreen, but a named tea is more specific than a species. Cultivar, plant age, elevation, shade, rainfall, temperature, soil, pests, pruning, and farming system affect growth. The season and even the weather between harvest days can alter tenderness and chemistry.\n\nTea also supports livelihoods at enormous scale. The Food and Agriculture Organization says the sector supports more than 13 million people and that smallholders produce a large share of the world’s tea ([FAO International Tea Day](https://www.fao.org/international-tea-day/home/international-tea-day-2025/en)). “Origin” is therefore not just a flavor word. It names living communities and working landscapes."
+        "markdown": "*Camellia sinensis* is an evergreen, but a named tea is more specific than a species. Cultivar, plant age, elevation, shade, rainfall, temperature, soil, pests, pruning, and farming system affect growth. The season and even the weather between harvest days can alter tenderness and chemistry.\n\nTea also supports livelihoods at enormous scale. The Food and Agriculture Organization says the sector supports more than 13 million people and that smallholders produce a large share of the world’s tea ([FAO International Tea Day](https://www.fao.org/international-tea-day/en)). “Origin” is therefore not just a flavor word. It names living communities and working landscapes."
       },
       {
         "heading": "2. Harvest",
@@ -182,7 +182,7 @@ export const blogs = [
     "sourceLinks": [
       {
         "label": "FAO — International Tea Day",
-        "url": "https://www.fao.org/international-tea-day/home/international-tea-day-2025/en"
+        "url": "https://www.fao.org/international-tea-day/en"
       },
       {
         "label": "Washington State University Extension — Tea Production Guide",
@@ -259,7 +259,7 @@ export const blogs = [
       },
       {
         "label": "FAO — International Tea Day",
-        "url": "https://www.fao.org/international-tea-day/home/international-tea-day-2025/en"
+        "url": "https://www.fao.org/international-tea-day/en"
       }
     ],
     "imageKey": "b04",

@@ -25,7 +25,6 @@ const organizationJsonLd = {
   sameAs: [
     SOCIAL_LINKS.instagram,
     SOCIAL_LINKS.x,
-    SOCIAL_LINKS.youtube,
     SOCIAL_LINKS.aliaspaces,
     SOCIAL_LINKS.archive,
   ],
