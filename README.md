@@ -54,8 +54,25 @@ npm test
 
 - `app/` — pages, structured search metadata, and editorial content.
 - `public/images/` — the visual library used across the public site.
+- `packages/brew-core/` — brewing-session, timer, and tasting-journal logic.
+- `mobile/` — local-first Capacitor companion (web preview + Android debug).
+- `docs/mobile-roadmap.md` — mobile milestone status and blockers.
 - `tests/` — rendered-route, search, disclosure, and unique-image checks.
 - `image-manifests/` — generation notes and asset provenance records.
+
+## Mobile companion
+
+The public site is unchanged as the storefront. The companion lives in
+`mobile/` and uses approved starting points from `app/content/library.ts`.
+
+```bash
+npm run test:brew-core
+cd mobile && npm install && npm run dev
+```
+
+Android debug APK steps, signing/data notes, and what is *not* claimed
+(background alarms, store listing) are in [mobile/README.md](mobile/README.md).
+
 
 ## Publishing
 

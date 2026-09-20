@@ -1,0 +1,231 @@
+:root {
+  --ink: #17332b;
+  --forest: #17382e;
+  --deep: #0f2a23;
+  --cream: #f4f0e5;
+  --paper: #fbf9f2;
+  --gold: #d4a62a;
+  --muted: #68766f;
+  --line: rgba(23, 51, 43, 0.16);
+  --danger: #8a3b2b;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.topbar {
+  padding: calc(18px + var(--safe-top)) 20px 16px;
+  background: var(--deep);
+  color: var(--cream);
+}
+.topbar p {
+  margin: 0 0 6px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-family: system-ui, sans-serif;
+  opacity: 0.78;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 400;
+}
+.topbar h1 em { font-weight: 400; color: var(--gold); }
+
+.page {
+  padding: 20px 18px 28px;
+  overflow: auto;
+}
+
+.bottom-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  background: #fffdf7;
+  padding-bottom: var(--safe-bottom);
+}
+.bottom-nav button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 12px 4px 10px;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+}
+.bottom-nav button.active {
+  color: var(--deep);
+  font-weight: 600;
+}
+
+.banner {
+  background: #efe6c8;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.banner.warning { background: #f3ddd4; }
+.banner strong { display: block; margin-bottom: 4px; }
+
+.stack { display: grid; gap: 12px; }
+
+.card, .choice, .entry-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+.choice { text-align: left; width: 100%; color: inherit; }
+.choice small, .muted, .kicker {
+  font-family: system-ui, sans-serif;
+  color: var(--muted);
+  font-size: 12px;
+}
+.choice h2, .card h2, .entry-card h2 {
+  margin: 4px 0 6px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.quote {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+.sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.sources a {
+  color: var(--forest);
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.btn, .btn-secondary, .btn-ghost {
+  border-radius: 999px;
+  padding: 11px 16px;
+  border: 1px solid var(--deep);
+  background: var(--deep);
+  color: var(--cream);
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+}
+.btn-secondary { background: transparent; color: var(--deep); }
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn:disabled { opacity: 0.5; }
+
+.timer-face {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 18px 8px 8px;
+}
+.timer-ring {
+  width: min(72vw, 280px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 10px solid #e4ddd0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 40%, #fffdf8, #f3eee2 70%);
+}
+.timer-ring strong {
+  font-size: clamp(42px, 12vw, 64px);
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+}
+.chip.active { border-color: var(--deep); background: var(--deep); color: var(--cream); }
+.chip.done { opacity: 0.6; }
+
+label, .field {
+  display: grid;
+  gap: 6px;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+}
+input, textarea, select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 12px;
+  background: white;
+  color: var(--ink);
+}
+textarea { min-height: 88px; resize: vertical; }
+
+.search {
+  margin-bottom: 14px;
+}
+
+.entry-card {
+  width: 100%;
+  text-align: left;
+  color: inherit;
+}
+
+.legal {
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.preview {
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+h2.section {
+  margin: 8px 0 4px;
+  font-size: 22px;
+  font-weight: 500;
+}

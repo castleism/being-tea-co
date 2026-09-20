@@ -1,0 +1,45 @@
+{
+  "schema": "being-tea-co.tasting-journal.v1",
+  "exportedAt": "2026-09-20T00:00:00.000Z",
+  "app": "being-tea-co-mobile",
+  "fixture": true,
+  "entries": [
+    {
+      "id": "entry_11111111-2222-4333-a444-555555555555",
+      "createdAt": "2026-09-18T15:04:00.000Z",
+      "updatedAt": "2026-09-18T15:10:00.000Z",
+      "teaName": "Fixture oolong — not a real tasting",
+      "familySlug": "oolong",
+      "methodSlug": "gongfu",
+      "sessionId": null,
+      "guidanceId": "oolong__gongfu",
+      "leafAmount": "6 g / 100 mL (sample only)",
+      "waterAmount": "100 mL",
+      "temperatureObserved": "Sample kettle note",
+      "infusionTimesSeconds": [20, 20, 25],
+      "aroma": "This row is a fixture for import testing.",
+      "taste": "Not a review and not founder data.",
+      "texture": "",
+      "finish": "",
+      "notes": "Safe to delete. Do not treat as a Being Tea Co. published tasting.",
+      "wouldBrewAgain": null
+    }
+  ],
+  "sessions": [
+    {
+      "id": "session_aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+      "name": "Fixture gongfu sequence",
+      "origin": "user",
+      "guidanceId": "oolong__gongfu",
+      "familySlug": "oolong",
+      "methodSlug": "gongfu",
+      "infusions": [
+        { "index": 0, "label": "Infusion 1", "durationSeconds": 20 },
+        { "index": 1, "label": "Infusion 2", "durationSeconds": 25 }
+      ],
+      "notes": "Fixture session for import testing, not a published recipe.",
+      "createdAt": "2026-09-18T15:00:00.000Z",
+      "updatedAt": "2026-09-18T15:00:00.000Z"
+    }
+  ]
+}
