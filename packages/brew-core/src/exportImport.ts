@@ -263,3 +263,50 @@ export function exportFilename(now: Date, fixture = false): string {
     ? `being-tea-co-journal-fixture-${stamp}.json`
     : `being-tea-co-tasting-journal-${stamp}.json`;
 }
+
+function csvEscape(value: string): string {
+  if (/[",\n]/.test(value)) return `"${value.replaceAll('"', '""')}"`;
+  return value;
+}
+
+export function entriesToCsv(entries: TastingEntry[]): string {
+  const header = [
+    "id",
+    "updatedAt",
+    "teaName",
+    "familySlug",
+    "methodSlug",
+    "leafAmount",
+    "waterAmount",
+    "temperatureObserved",
+    "infusionTimesSeconds",
+    "aroma",
+    "taste",
+    "texture",
+    "finish",
+    "notes",
+    "wouldBrewAgain",
+  ];
+  const rows = entries.map((entry) =>
+    [
+      entry.id,
+      entry.updatedAt,
+      entry.teaName,
+      entry.familySlug,
+      entry.methodSlug,
+      entry.leafAmount,
+      entry.waterAmount,
+      entry.temperatureObserved,
+      entry.infusionTimesSeconds.join(" "),
+      entry.aroma,
+      entry.taste,
+      entry.texture,
+      entry.finish,
+      entry.notes,
+      entry.wouldBrewAgain === null ? "" : entry.wouldBrewAgain ? "yes" : "no",
+    ]
+      .map((value) => csvEscape(String(value)))
+      .join(","),
+  );
+  return [header.join(","), ...rows].join("\n");
+}

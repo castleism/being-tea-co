@@ -45,8 +45,10 @@ export {
   previewImport,
   applyImport,
   exportFilename,
+  entriesToCsv,
   ImportError,
 } from "./exportImport.ts";
+export { completionNotice, NOTICE_CHANNEL_ID } from "./notices.ts";
 export { createBrewStore, emptyState, hydrateState, STORAGE_KEY } from "./store.ts";
 export type { BrewStore, Persistence } from "./store.ts";
 export type {

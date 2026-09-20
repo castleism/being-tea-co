@@ -85,9 +85,11 @@ export function SessionScreen({
         Apply duration
       </button>
       <p className="legal">
-        The chime plays only while this companion is open in the foreground.
-        Closing the app does not schedule a system alarm. Relaunch recovery
-        uses the saved remaining time and wall clock.
+        The chime and optional haptic play while this companion is open. If you
+        grant notification permission on a native build, a local infusion
+        notice can be scheduled for the current run. That is not a guaranteed
+        alarm after the system stops the app. Relaunch recovery always uses
+        saved wall-clock state.
       </p>
       {guidance?.notes ? <p className="muted">{guidance.notes}</p> : null}
       <label>

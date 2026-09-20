@@ -70,8 +70,10 @@ npm run test:brew-core
 cd mobile && npm install && npm run dev
 ```
 
-Android debug APK steps, signing/data notes, and what is *not* claimed
-(background alarms, store listing) are in [mobile/README.md](mobile/README.md).
+Android debug APK steps, the iOS project, signing/data notes, and what is
+*not* claimed (guaranteed alarms, store listing) are in
+[mobile/README.md](mobile/README.md). Human-gated Play copy lives in
+[docs/play-internal-testing-draft.md](docs/play-internal-testing-draft.md).
 
 
 ## Publishing

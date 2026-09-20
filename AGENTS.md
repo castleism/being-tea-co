@@ -40,15 +40,19 @@ images.
 
 ## Mobile companion scope
 
-The first mobile milestone is local-only:
+The companion is local-only through the current milestones:
 
 1. Reusable multi-infusion brewing sessions built from approved guidance.
 2. An adjustable infusion timer with pause/resume and relaunch recovery.
 3. A persistent tasting journal with edit, search, and safe export/import.
+4. Native share/CSV, Preferences persistence, keep-awake, and optional local
+   infusion notices. Notices are not guaranteed alarms and must not be marketed
+   until a human device test exists.
+5. An iOS project that still needs Xcode on a Mac.
 
-Timer recovery uses persisted wall-clock state. It is not an operating-system
-alarm. An in-app chime may play only while the companion is open in the
-foreground.
+Timer recovery uses persisted wall-clock state. An in-app chime may play
+while the companion is open. Do not claim store availability or background
+alarms without a real device observation.
 
 Existing phone-test prototypes, if any, are local to the founder’s devices and
 are not in this cloud checkout. Do not claim access to them.

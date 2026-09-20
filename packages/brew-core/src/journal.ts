@@ -70,9 +70,15 @@ export function updateEntry(
   });
 }
 
-export function searchEntries(entries: TastingEntry[], query: string): TastingEntry[] {
+export function searchEntries(
+  entries: TastingEntry[],
+  query: string,
+  familySlug = "",
+): TastingEntry[] {
   const needle = query.trim().toLowerCase();
-  const sorted = [...entries].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  const family = familySlug.trim();
+  const scoped = family ? entries.filter((entry) => entry.familySlug === family) : entries;
+  const sorted = [...scoped].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
   if (!needle) return sorted;
   return sorted.filter((entry) => {
     const haystack = [

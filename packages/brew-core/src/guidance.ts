@@ -444,6 +444,85 @@ export const startingPoints: StartingPoint[] = [
     reusable: true,
     allowsTemperatureDisplay: true,
   }),
+  point({
+    id: "green__flash-chilled",
+    familySlug: "green",
+    familyName: "Green tea",
+    methodSlug: "flash-chilled",
+    methodName: "Flash-chilled iced tea",
+    familyBrewQuote:
+      "For Chinese pan-fired green tea, start with 2–3 g per 250 mL at 75–85°C / 167–185°F for 1.5–3 minutes. Japanese styles deserve their own method and often shorter, cooler infusions.",
+    methodStartingPointQuote:
+      "Use roughly double normal leaf or reduce hot water so the melting ice completes the intended final volume.",
+    methodWatchQuote:
+      "Ice is part of the recipe, not decoration. Weigh it or accept that each batch will dilute differently.",
+    sources: [MAFF_COLD, MAFF_BREW],
+    infusionMode: "single",
+    houseTimerSeconds: seconds([90]),
+    timerNote:
+      "The hot-concentrate timer uses the low end of the Chinese pan-fired green range. This is not a Japanese iced-tea recipe, and ice volume is not timed here.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
+  point({
+    id: "black-red__flash-chilled",
+    familySlug: "black-red",
+    familyName: "Black tea / hongcha",
+    methodSlug: "flash-chilled",
+    methodName: "Flash-chilled iced tea",
+    familyBrewQuote:
+      "Start with 2.5–3 g per 250 mL at 95–100°C / 203–212°F for 3–5 minutes. Broken or CTC tea usually extracts faster than large whole leaf.",
+    methodStartingPointQuote:
+      "Use roughly double normal leaf or reduce hot water so the melting ice completes the intended final volume.",
+    methodWatchQuote:
+      "Ice is part of the recipe, not decoration. Weigh it or accept that each batch will dilute differently.",
+    sources: [MAFF_COLD, TEA_USA],
+    infusionMode: "single",
+    houseTimerSeconds: seconds([180]),
+    timerNote:
+      "The hot-concentrate timer uses the low end of the black-tea Western range. Ice volume is part of the method and is not timed here.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
+  point({
+    id: "dark-heicha__gongfu",
+    familySlug: "dark-heicha",
+    familyName: "Dark tea / heicha",
+    methodSlug: "gongfu",
+    methodName: "Gongfu brewing",
+    familyBrewQuote:
+      "Start with 3–4 g per 250 mL at 95–100°C / 203–212°F for 2–4 minutes. Compressed leaf may need time to open; pour each infusion completely.",
+    methodStartingPointQuote:
+      "Begin around 5–8 g per 100–120 mL with brief infusions, then adjust to density, age and the leaf’s opening pace.",
+    methodWatchQuote:
+      "Gongfu is a family of practices, not one universal performance. Name the cultural source and avoid claiming lineage authority.",
+    sources: [DARK_MICROBE, DARK_SAFETY, TAIWAN_BREW],
+    infusionMode: "multi",
+    houseTimerSeconds: seconds([20, 20, 25, 30, 40, 50, 60, 70]),
+    timerNote: BRIEF_GONGFU_NOTE,
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
+  point({
+    id: "green__leaves-in-a-bowl",
+    familySlug: "green",
+    familyName: "Green tea",
+    methodSlug: "leaves-in-a-bowl",
+    methodName: "Leaves in a bowl",
+    familyBrewQuote:
+      "For Chinese pan-fired green tea, start with 2–3 g per 250 mL at 75–85°C / 167–185°F for 1.5–3 minutes. Japanese styles deserve their own method and often shorter, cooler infusions.",
+    methodStartingPointQuote:
+      "Use very little large whole leaf, comfortable-temperature water and enough room for the leaf to settle.",
+    methodWatchQuote:
+      "This contemporary practice source should be credited. Do not turn a simple method into an invented ancient or religious claim.",
+    sources: [LIVING_TEA, MAFF_BREW],
+    infusionMode: "continuous",
+    houseTimerSeconds: seconds([]),
+    timerNote:
+      "No published second-count. Start a user-set timer only if you want a personal pause before the first sip.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
 ];
 
 export function getStartingPoint(id: string): StartingPoint | undefined {

@@ -13,8 +13,13 @@ Phone-test prototypes on founder devices are **not** in this cloud checkout.
   relaunch recovery from persisted wall-clock state.
 - Persistent tasting journal with edit, search, delete, and safe JSON
   export/import (schema allowlist, key rejection, merge or replace).
-- An in-app foreground chime only. **No operating-system alarm is scheduled.**
+- An in-app foreground chime, optional haptic, and optional local infusion
+  notice if the OS grants permission. **That notice is not a guaranteed
+  alarm after the system stops the app.**
+- Keep-awake while a timer is running on native builds.
+- Native share/export, CSV, family filter, and editable saved sessions.
 - A labeled fixture file for import testing. The journal starts empty.
+- An iOS Xcode project (`mobile/ios`) that has not been compiled here.
 
 ## Web preview (smoke and daily use)
 
@@ -71,7 +76,21 @@ npm run android:apk
 If the SDK is missing, the web build still verifies the same logic. Do not
 claim an APK exists unless that file was actually produced.
 
-### Signing and user data
+This APK declares `POST_NOTIFICATIONS`, `WAKE_LOCK`, and
+`RECEIVE_BOOT_COMPLETED` because of the local-notice and keep-awake
+plugins. Those permissions do not mean a lock-screen alarm was device-tested.
+
+## iOS
+
+```bash
+cd mobile
+npx cap sync ios
+```
+
+Then open `ios/App/App.xcworkspace` on a Mac with CocoaPods and Xcode.
+This Linux environment cannot produce an IPA.
+
+## Signing and user data
 
 Debug APKs use the local debug keystore. A differently signed build is a
 different Android app and will not see the previous local journal. Export

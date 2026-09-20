@@ -4,63 +4,80 @@ Status date: 20 September 2026
 Checkout: public `being-tea-co` cloud workspace. Local phone-test prototypes
 were **not** present and were not accessed.
 
+## What Cursor can still not do
+
+These remain human-gated. They are not unfinished coding tasks in this repo:
+
+- Sideload on a founder phone and confirm a differently signed prototype
+  journal via export/import
+- Observe a local infusion notice after process death, Doze, or a physical
+  device lock-screen
+- Compile or run the iOS target (no Xcode / CocoaPods here)
+- Publish a public privacy URL, create a Play internal track, or upload an AAB
+- Start account sync or any paid service
+- Add pairings that are not already supported by `app/content/library.ts`
+
+An Android emulator was started in this environment. QEMU came up, but `adb`
+stayed **offline**, so the APK was not installed on a running guest. That is
+an environment limit, not missing app code.
+
 ## Milestone 1 — Brewing sessions, timer, journal
 
 | Capability | Status | Evidence |
 | --- | --- | --- |
-| Reusable multi-infusion sessions from approved tea-family guidance | **Verified** | `npm run test:brew-core`; Brew screen uses `app/content/library.ts` quotes and source URLs |
-| Adjustable timer, pause/resume, relaunch recovery | **Verified** | Unit tests plus Chrome 390×844 smoke: start, pause, resume, +15s, reload recovery banner |
-| Persistent tasting journal with edit/search | **Verified** | Unit tests plus smoke: create/edit “Rock oolong Saturday”, search “stone” / “stone fruit” |
-| Safe export/import | **Verified** | Hostile JSON rejected in tests; fixture merge preview labeled as sample; journal starts empty |
-| Storefront preserved | **Verified** | No `app/` page or editorial content edits |
-| Android debug APK | **Verified in this environment** | `./gradlew assembleDebug` succeeded. Package `co.beingtea.companion`, version 1.0, target SDK 35, 4.1 MB debug APK. Sideload only; not store-signed |
+| Reusable multi-infusion sessions from approved tea-family guidance | **Verified** | `npm run test:brew-core` |
+| Adjustable timer, pause/resume, relaunch recovery | **Verified** | Unit tests + Chrome 390×844 smoke |
+| Persistent tasting journal with edit/search | **Verified** | Unit tests + smoke |
+| Safe export/import | **Verified** | Hostile JSON rejected; fixture labeled |
+| Storefront preserved | **Verified** | No `app/` page rewrites |
+| Android debug APK | **Verified** | `assembleDebug`; `co.beingtea.companion` |
 
-### Honest limits of milestone 1
+## Milestone 2 — Everything else this environment can finish
 
-- No background / lock-screen alarm has been implemented or device-tested. The
-  APK requests `INTERNET` and `VIBRATE` only. Recovery is wall-clock
-  persistence plus an in-app chime while the UI is open.
-- The APK was assembled, inspected with `aapt dump badging`, and not installed
-  on a physical phone in this checkout.
-- No iOS project, signing, or TestFlight build.
-- No Play or App Store submission. Store accounts may exist (Google personal);
-  submissions stay later and human-gated.
-- No access to founder phone prototypes or private image banks.
+| Capability | Status | Evidence |
+| --- | --- | --- |
+| Additional pairings justified by existing library text | **Verified** | Green/black flash-chill, dark-tea gongfu, green leaves-in-a-bowl; quote tests still pass |
+| Native Preferences persistence + localStorage fallback | **Implemented** | `mobile/src/storage.ts` |
+| Native share/export and CSV | **Verified** | `entriesToCsv` unit test; Data screen share/CSV |
+| Journal family filter + user-session editor | **Verified** | Unit tests + UI |
+| Keep-awake while a timer is running | **Implemented, not device-observed** | `@capacitor-community/keep-awake`; APK includes `WAKE_LOCK` |
+| Local infusion notice (optional permission) | **Implemented, not device-observed** | Schedule/cancel logic unit-tested; APK includes `POST_NOTIFICATIONS`. UI says this is not a guaranteed alarm |
+| Foreground haptic on completion | **Implemented, not device-observed** | Capacitor Haptics; silent on web |
+| Android back button | **Implemented, not device-observed** | Capacitor `backButton` |
+| In-app about/privacy | **Verified** | Data tab; `docs/mobile-privacy.md` |
+| iOS Xcode project | **Added, not compiled** | `npx cap add ios`; no `xcodebuild` here |
+| Play internal testing draft | **Draft only** | `docs/play-internal-testing-draft.md` — no upload |
+| Emulator sideload | **Blocked** | Emulator process started; adb remained offline |
 
-## Next milestones
+### Honest limits
 
-1. **On-device APK install** — sideload the debug APK on a founder phone, export
-   any existing local prototype notes first, then confirm timer recovery and
-   journal import. Do not overwrite a differently signed install’s data.
-2. **Device-lab timer notifications** — implement and test an Android
-   foreground service or exact alarm only after a physical or emulator device
-   run. Do not market this until that test exists.
-3. **iOS debug companion** — add an iOS Capacitor target when Xcode is
-   available. Keep the same brew-core store and export format.
-4. **Play internal testing** — draft store listing, privacy text for on-device
-   journal data, and a human-owned upload. No agent-initiated submit.
-5. **Optional account sync** — only after a privacy-policy update and an
-   explicit product decision. Local export remains the backup path.
-6. **Editorial session packs** — additional pairings only when
-   `app/content/library.ts` gains approved text.
+- Local notices and keep-awake are real native wiring, not store-claimed
+  background alarms. They have not been watched on a booted Android guest or
+  phone.
+- The APK was assembled and inspected with `aapt` (`INTERNET`, `VIBRATE`,
+  `WAKE_LOCK`, `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`). It was not
+  installed on a running Android OS in this checkout.
+- iOS needs a Mac, CocoaPods, and Xcode.
+- Store accounts exist (Google personal). Submissions stay human-gated.
 
-## Blockers
+## Next human milestones
 
-- Founder-device prototypes and private images are not in this cloud checkout.
-- iOS tooling is not available on this Linux workspace.
-- Production keystores and store API tokens must stay out of the repo.
-- Different debug signing keys prevent silent journal migration; export/import
-  is the supported path.
-- Physical-phone install and Play internal testing need a human with the
-  device and store accounts.
+1. Sideload the debug APK. Export any older prototype journal first.
+2. Grant notification permission and time one infusion with the app
+   backgrounded, then after a force-stop. Only then decide whether to
+   market a notice.
+3. Open `mobile/ios` in Xcode and produce a debug build.
+4. Publish a companion privacy URL and, if desired, a Play internal track.
+5. New session packs only when `app/content/library.ts` gains approved text.
 
 ## Verification log
 
 | Check | Result |
 | --- | --- |
-| `npm run test:brew-core` | **Passed** — 18 tests (guidance quotes, timer recovery, sessions, journal, fixture, hostile import) |
-| Mobile web smoke (brew → timer pause/resume → recover → journal edit/search → export/import) | **Passed** — `node mobile/tests/smoke.mjs` against `http://127.0.0.1:5174` at 390×844; screenshots in the draft PR |
-| Manual browser pass | **Passed** — same flows in a mobile viewport, including recovery banner and fixture/export honesty |
-| Storefront `npm test` | **Skipped** — no `app/` source changes; storefront architecture left in place |
-| `mobile` production build | **Passed** — `npm run build` in `mobile/` |
-| Android `assembleDebug` APK | **Passed** — `mobile/android/app/build/outputs/apk/debug/app-debug.apk` (copied for the PR as `being-tea-co-companion-debug.apk`) |
+| `npm run test:brew-core` | **Passed** — 22 tests |
+| Mobile web smoke | **Passed** — `node mobile/tests/smoke.mjs` at 390×844 |
+| `mobile` production build | **Passed** |
+| Android `assembleDebug` | **Passed** — 4.4 MB debug APK |
+| iOS `xcodebuild` | **Not available** |
+| Emulator `adb install` | **Failed** — device offline |
+| Storefront `npm test` | **Skipped** — no `app/` source changes |

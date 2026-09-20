@@ -4,25 +4,48 @@ import {
   formatDuration,
   remainingMsAt,
   type BrewState,
+  type BrewStore,
   type TastingEntry,
 } from "@brew-core";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { playForegroundChime, resetChimeGuard } from "./audio.ts";
+import { pulseCompletion, syncInfusionNotice, syncKeepAwake } from "./runtime.ts";
 import { BrewScreen } from "./screens/BrewScreen.tsx";
 import { DataScreen } from "./screens/DataScreen.tsx";
 import { EntryScreen } from "./screens/EntryScreen.tsx";
 import { JournalScreen } from "./screens/JournalScreen.tsx";
 import { SessionScreen } from "./screens/SessionScreen.tsx";
 import { StateContext, StoreContext } from "./storeContext.ts";
-import { createWebPersistence } from "./storage.ts";
+import { createAppPersistence } from "./storage.ts";
 
 export type Tab = "brew" | "session" | "journal" | "data";
 
 export function App() {
-  const store = useMemo(
-    () => createBrewStore({ persistence: createWebPersistence() }),
-    [],
-  );
+  const [store, setStore] = useState<BrewStore | null>(null);
+  useEffect(() => {
+    let alive = true;
+    void createAppPersistence().then((persistence) => {
+      if (!alive) return;
+      setStore(createBrewStore({ persistence }));
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  if (!store) {
+    return (
+      <div className="app-shell">
+        <header className="topbar">
+          <p>Being Tea Co.</p>
+          <h1>Opening the local journal…</h1>
+        </header>
+      </div>
+    );
+  }
+  return <AppReady store={store} />;
+}
+
+function AppReady({ store }: { store: BrewStore }) {
   const [state, setState] = useState<BrewState>(() => store.getState());
   const [tab, setTab] = useState<Tab>(state.activeSession ? "session" : "brew");
   const [editingEntry, setEditingEntry] = useState<TastingEntry | null>(null);
@@ -46,6 +69,7 @@ export function App() {
     document.addEventListener("visibilitychange", visibility);
     window.addEventListener("focus", recover);
     let appHandle: { remove: () => void } | undefined;
+    let backHandle: { remove: () => void } | undefined;
     void CapApp.addListener("appStateChange", ({ isActive }) => {
       if (isActive) recover();
     }).then((handle) => {
@@ -53,12 +77,26 @@ export function App() {
     }).catch(() => {
       // Web preview has no native app plugin.
     });
+    void CapApp.addListener("backButton", () => {
+      if (editingEntry) {
+        setEditingEntry(null);
+        return;
+      }
+      if (tab !== "brew") {
+        setTab("brew");
+        return;
+      }
+      void CapApp.minimizeApp();
+    }).then((handle) => {
+      backHandle = handle;
+    }).catch(() => undefined);
     return () => {
       document.removeEventListener("visibilitychange", visibility);
       window.removeEventListener("focus", recover);
       appHandle?.remove();
+      backHandle?.remove();
     };
-  }, [store]);
+  }, [store, tab, editingEntry]);
 
   useEffect(() => {
     const timer = state.activeSession?.timer;
@@ -69,11 +107,23 @@ export function App() {
 
   useEffect(() => {
     const session = state.activeSession;
+    const running = session?.timer.status === "running";
+    void syncKeepAwake(Boolean(running));
+    void syncInfusionNotice(session?.timer, {
+      infusionLabel: session?.infusions[session.currentInfusionIndex]?.label,
+      sessionName: session?.name,
+    });
+  }, [state.activeSession]);
+
+  useEffect(() => {
+    const session = state.activeSession;
     if (!session) return;
     const now = Date.now();
     const remaining = remainingMsAt(session.timer, now);
     if (session.timer.status === "completed" || remaining <= 0 && session.timer.status === "running") {
-      playForegroundChime(`${session.id}:${session.currentInfusionIndex}:${session.timer.completedAtMs ?? "done"}`);
+      const key = `${session.id}:${session.currentInfusionIndex}:${session.timer.completedAtMs ?? "done"}`;
+      playForegroundChime(key);
+      void pulseCompletion();
     } else {
       resetChimeGuard();
     }
@@ -98,7 +148,7 @@ export function App() {
               <div className={`banner ${state.activeSession.completedWhileAway ? "warning" : ""}`}>
                 <strong>Session recovered after relaunch</strong>
                 {state.activeSession.completedWhileAway
-                  ? `Infusion ${state.activeSession.currentInfusionIndex + 1} finished while the app was away. Remaining is ${formatDuration(remaining)}. No operating-system alarm was scheduled.`
+                  ? `Infusion ${state.activeSession.currentInfusionIndex + 1} finished while the app was away. Remaining is ${formatDuration(remaining)}. Recovery used saved wall-clock state.`
                   : `Timer restored from saved wall-clock state. Remaining ${formatDuration(remaining)}.`}
               </div>
             ) : null}

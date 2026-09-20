@@ -90,3 +90,18 @@ test("store recovers a running timer from persistence", () => {
   assert.ok(active.timer.remainingMs <= 150_000);
   assert.ok(active.timer.remainingMs >= 140_000);
 });
+
+test("user-saved sessions can be renamed and have infusions edited", () => {
+  const store = createBrewStore({ now: () => Date.parse("2026-09-20T08:00:00.000Z") });
+  const template = store.getState().templates.find((item) => item.guidanceId === "oolong__gongfu");
+  assert.ok(template);
+  store.startTemplate(template);
+  store.saveActiveAsReusable("Saturday oolong");
+  const saved = store.getState().templates.find((item) => item.origin === "user");
+  assert.ok(saved);
+  store.renameUserTemplate(saved.id, "Sunday oolong");
+  store.setUserTemplateInfusions(saved.id, [15, 25, 35]);
+  const updated = store.getState().templates.find((item) => item.id === saved.id);
+  assert.equal(updated?.name, "Sunday oolong");
+  assert.deepEqual(updated?.infusions.map((item) => item.durationSeconds), [15, 25, 35]);
+});

@@ -188,8 +188,39 @@ export function createBrewStore(options: {
         entries: deleteEntry(state.entries, id),
       });
     },
-    search(query: string): TastingEntry[] {
-      return searchEntries(state.entries, query);
+    search(query: string, familySlug = ""): TastingEntry[] {
+      return searchEntries(state.entries, query, familySlug);
+    },
+    renameUserTemplate(id: string, name: string) {
+      return commit({
+        ...state,
+        templates: state.templates.map((template) =>
+          template.id === id && template.origin === "user"
+            ? { ...template, name: name.trim().slice(0, 200) || template.name, updatedAt: nowIso() }
+            : template,
+        ),
+      });
+    },
+    setUserTemplateInfusions(id: string, seconds: number[]) {
+      return commit({
+        ...state,
+        templates: state.templates.map((template) =>
+          template.id === id && template.origin === "user"
+            ? {
+                ...template,
+                infusions: seconds
+                  .filter((value) => Number.isFinite(value) && value >= 5)
+                  .slice(0, 24)
+                  .map((durationSeconds, index) => ({
+                    index,
+                    label: `Infusion ${index + 1}`,
+                    durationSeconds: Math.round(durationSeconds),
+                  })),
+                updatedAt: nowIso(),
+              }
+            : template,
+        ),
+      });
     },
     exportBundle(fixture = false): ExportBundle {
       return createExportBundle({

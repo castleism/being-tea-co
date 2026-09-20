@@ -101,7 +101,26 @@ export function BrewScreen({ onStarted }: { onStarted: () => void }) {
         userTemplates.map((template) => (
           <article className="card" key={template.id}>
             <small>{template.familySlug} · {template.infusions.length} infusions</small>
-            <h2>{template.name}</h2>
+            <label>
+              Session name
+              <input
+                defaultValue={template.name}
+                onBlur={(event) => store.renameUserTemplate(template.id, event.target.value)}
+              />
+            </label>
+            <label>
+              Infusion seconds, comma-separated
+              <input
+                defaultValue={template.infusions.map((item) => item.durationSeconds).join(", ")}
+                onBlur={(event) => {
+                  const seconds = event.target.value
+                    .split(",")
+                    .map((part) => Number(part.trim()))
+                    .filter((value) => Number.isFinite(value));
+                  if (seconds.length) store.setUserTemplateInfusions(template.id, seconds);
+                }}
+              />
+            </label>
             <p className="muted">{template.notes}</p>
             <div className="actions">
               <button className="btn" onClick={() => startFromTemplate(template)}>Reuse</button>

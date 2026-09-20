@@ -1,4 +1,4 @@
-import { createEntry, type TastingEntry } from "@brew-core";
+import { createEntry, listFamilies, type TastingEntry } from "@brew-core";
 import { useMemo, useState } from "react";
 import { useBrewState, useBrewStore } from "../storeContext.ts";
 
@@ -6,7 +6,9 @@ export function JournalScreen({ onEdit }: { onEdit: (entry: TastingEntry) => voi
   const store = useBrewStore();
   const { entries } = useBrewState();
   const [query, setQuery] = useState("");
-  const results = useMemo(() => store.search(query), [store, query, entries]);
+  const [familySlug, setFamilySlug] = useState("");
+  const families = useMemo(() => listFamilies(), []);
+  const results = useMemo(() => store.search(query, familySlug), [store, query, familySlug, entries]);
 
   return (
     <div>
@@ -22,6 +24,18 @@ export function JournalScreen({ onEdit }: { onEdit: (entry: TastingEntry) => voi
           placeholder="oolong, roast, sencha…"
         />
       </label>
+      <div className="chips" aria-label="Filter by family">
+        <button className={`chip ${familySlug === "" ? "active" : ""}`} onClick={() => setFamilySlug("")}>All</button>
+        {families.map((family) => (
+          <button
+            key={family.slug}
+            className={`chip ${familySlug === family.slug ? "active" : ""}`}
+            onClick={() => setFamilySlug(family.slug)}
+          >
+            {family.name}
+          </button>
+        ))}
+      </div>
       <div className="actions" style={{ marginBottom: 14 }}>
         <button
           className="btn"

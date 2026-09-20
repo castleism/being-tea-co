@@ -1,42 +1,52 @@
-import { exportFilename, type ExportBundle, type ImportPreview } from "@brew-core";
+import { entriesToCsv, exportFilename, type ExportBundle, type ImportPreview } from "@brew-core";
 import { useState } from "react";
-import { useBrewStore } from "../storeContext.ts";
+import { AboutScreen } from "./AboutScreen.tsx";
+import { exportTextFile } from "../share.ts";
+import { useBrewState, useBrewStore } from "../storeContext.ts";
 import fixtureRaw from "../../fixtures/sample-journal.v1.json?raw";
 
 export function DataScreen() {
   const store = useBrewStore();
+  const { entries } = useBrewState();
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState<{ preview: ImportPreview; bundle: ExportBundle } | null>(null);
-
-  function download(filename: string, text: string) {
-    const blob = new Blob([text], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    link.click();
-    URL.revokeObjectURL(url);
-  }
 
   return (
     <div className="stack">
       <section className="card">
         <h2>Export</h2>
         <p className="muted">
-          Download your journal and user-saved sessions as JSON. Use this before
+          Share your journal and user-saved sessions. Use this before
           installing a differently signed debug APK; Android will treat that as
           a different app and will not keep this local store.
         </p>
         <div className="actions">
           <button
             className="btn"
-            onClick={() => {
+            onClick={async () => {
               const bundle = store.exportBundle(false);
-              download(exportFilename(new Date(), false), JSON.stringify(bundle, null, 2));
+              await exportTextFile(
+                exportFilename(new Date(), false),
+                JSON.stringify(bundle, null, 2),
+                "Being Tea Co. journal",
+              );
               setMessage(`Exported ${bundle.entries.length} tastings and ${bundle.sessions.length} user sessions.`);
             }}
           >
             Export my journal
+          </button>
+          <button
+            className="btn-secondary"
+            onClick={async () => {
+              await exportTextFile(
+                exportFilename(new Date(), false).replace(".json", ".csv"),
+                entriesToCsv(entries),
+                "Being Tea Co. journal CSV",
+              );
+              setMessage(`Exported ${entries.length} tastings as CSV.`);
+            }}
+          >
+            Export CSV
           </button>
         </div>
       </section>
@@ -106,20 +116,16 @@ export function DataScreen() {
         </p>
         <button
           className="btn-secondary"
-          onClick={() => {
-            download("being-tea-co-journal-fixture.json", fixtureRaw);
-            setMessage("Downloaded the labeled fixture file.");
+          onClick={async () => {
+            await exportTextFile("being-tea-co-journal-fixture.json", fixtureRaw, "Being Tea Co. fixture");
+            setMessage("Shared the labeled fixture file.");
           }}
         >
-          Download sample fixture
+          Share sample fixture
         </button>
       </section>
       {message ? <div className="banner">{message}</div> : null}
-      <p className="legal">
-        Storefront pages are unchanged. This companion stores notes only on the
-        device. No store listing, paid service, or production secret is used
-        here.
-      </p>
+      <AboutScreen />
     </div>
   );
 }

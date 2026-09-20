@@ -116,6 +116,10 @@ button, input, textarea, select {
   line-height: 1.5;
   font-size: 15px;
 }
+.card ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
 
 .sources {
   display: flex;

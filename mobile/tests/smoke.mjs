@@ -26,6 +26,7 @@ async function shot(name) {
 
 try {
   await page.goto("http://127.0.0.1:5174/", { waitUntil: "networkidle0" });
+  await page.waitForFunction(() => document.body.innerText.includes("Tea family"));
   const title = await page.$eval(".topbar h1", (el) => el.textContent);
   assert.match(title ?? "", /Brew, taste/);
   await shot("01-brew-home.png");
