@@ -54,6 +54,20 @@ The debug APK is written to:
 
 `mobile/android/app/build/outputs/apk/debug/app-debug.apk`
 
+This environment produced that APK on 20 September 2026 with:
+
+- OpenJDK 21
+- Android SDK platform 35, build-tools 35.0.0 (Gradle also installed 34.0.0)
+- `ANDROID_SDK_ROOT` / `ANDROID_HOME` pointing at the SDK
+- `sdk.dir` in `android/local.properties` (not committed)
+
+```bash
+sdkmanager --sdk_root="$ANDROID_SDK_ROOT" \
+  "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+npm run android:apk
+```
+
 If the SDK is missing, the web build still verifies the same logic. Do not
 claim an APK exists unless that file was actually produced.
 
@@ -71,6 +85,12 @@ From the repository root:
 
 ```bash
 npm run test:brew-core
+```
+
+With the companion preview running (`cd mobile && npm run preview`):
+
+```bash
+cd mobile && npm run test:smoke
 ```
 
 That suite checks approved-quote integrity, timer recovery, reusable

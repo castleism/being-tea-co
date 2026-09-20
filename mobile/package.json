@@ -8,7 +8,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 5174",
     "cap:sync": "npm run build && npx cap sync android",
-    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug"
+    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug",
+    "test:smoke": "node tests/smoke.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
@@ -26,6 +27,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
+    "puppeteer-core": "^24.23.0",
     "typescript": "5.9.3",
     "vite": "8.0.13"
   }

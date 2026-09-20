@@ -55,7 +55,12 @@ export function BrewScreen({ onStarted }: { onStarted: () => void }) {
             data-guidance={point.id}
             onClick={() => setGuidanceId(point.id)}
           >
-            <small>{point.infusionMode} · {point.houseTimerSeconds.length || "user-set"} infusion slots</small>
+            <small>
+              {point.infusionMode} ·{" "}
+              {point.houseTimerSeconds.length === 0
+                ? "user-set timer"
+                : `${point.houseTimerSeconds.length} infusion${point.houseTimerSeconds.length === 1 ? "" : "s"}`}
+            </small>
             <h2>{point.methodName}</h2>
             <p className="quote">{point.familyBrewQuote}</p>
           </button>
