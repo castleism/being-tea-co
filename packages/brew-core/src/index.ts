@@ -1,4 +1,4 @@
-export { startingPoints, getStartingPoint, startingPointsForFamily, listFamilies, houseInfusionsFromGuidance, FORBIDDEN_CLAIM_PATTERNS } from "./guidance.ts";
+export { startingPoints, getStartingPoint, startingPointsForFamily, listFamilies, listMethods, houseInfusionsFromGuidance, FORBIDDEN_CLAIM_PATTERNS } from "./guidance.ts";
 export { createId, isSafeId } from "./ids.ts";
 export {
   createIdleTimer,
@@ -48,7 +48,7 @@ export {
   entriesToCsv,
   ImportError,
 } from "./exportImport.ts";
-export { completionNotice, NOTICE_CHANNEL_ID } from "./notices.ts";
+export { completionNotice, NOTICE_CHANNEL, NOTICE_CHANNEL_ID, NOTICE_IDS } from "./notices.ts";
 export { createBrewStore, emptyState, hydrateState, STORAGE_KEY } from "./store.ts";
 export type { BrewStore, Persistence } from "./store.ts";
 export type {

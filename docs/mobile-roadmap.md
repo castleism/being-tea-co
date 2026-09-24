@@ -1,6 +1,6 @@
 # Mobile roadmap
 
-Status date: 20 September 2026  
+Status date: 24 September 2026  
 Checkout: public `being-tea-co` cloud workspace. Local phone-test prototypes
 were **not** present and were not accessed.
 
@@ -17,9 +17,11 @@ These remain human-gated. They are not unfinished coding tasks in this repo:
 - Start account sync or any paid service
 - Add pairings that are not already supported by `app/content/library.ts`
 
-An Android emulator was started in this environment. QEMU came up, but `adb`
-stayed **offline**, so the APK was not installed on a running guest. That is
-an environment limit, not missing app code.
+An Android emulator was started in an earlier session of this environment.
+QEMU came up, but `adb` stayed **offline**, so the APK was not installed on a
+running guest. This continuation also has no Android SDK / `adb` on PATH
+unless those tools are reinstalled. That is an environment limit, not missing
+app code.
 
 ## Milestone 1 — Brewing sessions, timer, journal
 
@@ -36,24 +38,25 @@ an environment limit, not missing app code.
 
 | Capability | Status | Evidence |
 | --- | --- | --- |
-| Additional pairings justified by existing library text | **Verified** | Green/black flash-chill, dark-tea gongfu, green leaves-in-a-bowl; quote tests still pass |
+| Additional pairings justified by existing library text | **Verified** | Green/black/white/yellow flash-chill; dark-tea gongfu; white/green/yellow/oolong leaves-in-a-bowl; yellow/oolong grandpa; quote tests still pass |
 | Native Preferences persistence + localStorage fallback | **Implemented** | `mobile/src/storage.ts` |
 | Native share/export and CSV | **Verified** | `entriesToCsv` unit test; Data screen share/CSV |
-| Journal family filter + user-session editor | **Verified** | Unit tests + UI |
+| Journal family filter + user-session editor | **Verified** | Unit tests + UI; empty vs no-match copy |
+| Entry family/method selectors | **Verified** | Smoke asserts oolong after logging a session |
 | Keep-awake while a timer is running | **Implemented, not device-observed** | `@capacitor-community/keep-awake`; APK includes `WAKE_LOCK` |
-| Local infusion notice (optional permission) | **Implemented, not device-observed** | Schedule/cancel logic unit-tested; APK includes `POST_NOTIFICATIONS`. UI says this is not a guaranteed alarm |
+| Local infusion notice (optional permission) | **Implemented, not device-observed** | Android 8+ channel `being-tea-infusion`; `createChannel` + `channelId`; status-bar icon `ic_stat_tea`; in-app toggle; schedule/cancel logic unit-tested. UI says this is not a guaranteed alarm |
 | Foreground haptic on completion | **Implemented, not device-observed** | Capacitor Haptics; silent on web |
 | Android back button | **Implemented, not device-observed** | Capacitor `backButton` |
 | In-app about/privacy | **Verified** | Data tab; `docs/mobile-privacy.md` |
-| iOS Xcode project | **Added, not compiled** | `npx cap add ios`; no `xcodebuild` here |
+| iOS Xcode project | **Added, not compiled** | `npx cap add ios`; `ITSAppUsesNonExemptEncryption` = false; no `xcodebuild` here |
 | Play internal testing draft | **Draft only** | `docs/play-internal-testing-draft.md` — no upload |
-| Emulator sideload | **Blocked** | Emulator process started; adb remained offline |
+| Emulator sideload | **Blocked** | Earlier session: emulator process started; adb remained offline. This session: SDK/`adb` not on PATH |
 
 ### Honest limits
 
 - Local notices and keep-awake are real native wiring, not store-claimed
   background alarms. They have not been watched on a booted Android guest or
-  phone.
+  phone. Creating a notification channel does not prove lock-screen delivery.
 - The APK was assembled and inspected with `aapt` (`INTERNET`, `VIBRATE`,
   `WAKE_LOCK`, `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`). It was not
   installed on a running Android OS in this checkout.
@@ -74,10 +77,10 @@ an environment limit, not missing app code.
 
 | Check | Result |
 | --- | --- |
-| `npm run test:brew-core` | **Passed** — 22 tests |
-| Mobile web smoke | **Passed** — `node mobile/tests/smoke.mjs` at 390×844 |
-| `mobile` production build | **Passed** |
-| Android `assembleDebug` | **Passed** — 4.4 MB debug APK |
+| `npm run test:brew-core` | **Passed** — 24 tests (24 Sep 2026 continuation; confirm after this revision) |
+| Mobile web smoke | **Pending this revision** — family filter, entry selects, notice toggle |
+| `mobile` production build | **Pending this revision** |
+| Android `assembleDebug` | **Pending this revision** if SDK is present |
 | iOS `xcodebuild` | **Not available** |
-| Emulator `adb install` | **Failed** — device offline |
+| Emulator `adb install` | **Failed / unavailable** |
 | Storefront `npm test` | **Skipped** — no `app/` source changes |

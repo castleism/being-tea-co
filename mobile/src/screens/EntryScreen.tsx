@@ -1,5 +1,5 @@
-import type { TastingEntry } from "@brew-core";
-import { useState } from "react";
+import { listFamilies, listMethods, type TastingEntry } from "@brew-core";
+import { useMemo, useState } from "react";
 import { useBrewStore } from "../storeContext.ts";
 
 export function EntryScreen({
@@ -11,6 +11,16 @@ export function EntryScreen({
 }) {
   const store = useBrewStore();
   const [draft, setDraft] = useState(entry);
+  const families = useMemo(() => listFamilies(), []);
+  const methods = useMemo(() => listMethods(), []);
+  const familyOptions =
+    !draft.familySlug || families.some((family) => family.slug === draft.familySlug)
+      ? families
+      : [...families, { slug: draft.familySlug, name: draft.familySlug }];
+  const methodOptions =
+    !draft.methodSlug || methods.some((method) => method.slug === draft.methodSlug)
+      ? methods
+      : [...methods, { slug: draft.methodSlug, name: draft.methodSlug }];
 
   function field<K extends keyof TastingEntry>(key: K, value: TastingEntry[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
@@ -24,12 +34,34 @@ export function EntryScreen({
         <input value={draft.teaName} onChange={(event) => field("teaName", event.target.value)} />
       </label>
       <label>
-        Family slug
-        <input value={draft.familySlug} onChange={(event) => field("familySlug", event.target.value)} />
+        Tea family
+        <select
+          data-testid="entry-family"
+          value={draft.familySlug}
+          onChange={(event) => field("familySlug", event.target.value)}
+        >
+          <option value="">Not specified</option>
+          {familyOptions.map((family) => (
+            <option key={family.slug} value={family.slug}>
+              {family.name}
+            </option>
+          ))}
+        </select>
       </label>
       <label>
-        Method slug
-        <input value={draft.methodSlug} onChange={(event) => field("methodSlug", event.target.value)} />
+        Brew method
+        <select
+          data-testid="entry-method"
+          value={draft.methodSlug}
+          onChange={(event) => field("methodSlug", event.target.value)}
+        >
+          <option value="">Not specified</option>
+          {methodOptions.map((method) => (
+            <option key={method.slug} value={method.slug}>
+              {method.name}
+            </option>
+          ))}
+        </select>
       </label>
       <label>
         Leaf amount observed

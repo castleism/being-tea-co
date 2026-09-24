@@ -58,7 +58,9 @@ try {
   await page.evaluate(() => {
     [...document.querySelectorAll("button")].find((button) => button.textContent === "Log tasting from this session")?.click();
   });
-  await page.waitForSelector("input");
+  await page.waitForSelector('[data-testid="entry-family"]');
+  const familyValue = await page.$eval('[data-testid="entry-family"]', (el) => el.value);
+  assert.equal(familyValue, "oolong");
   await page.evaluate(() => {
     const name = document.querySelector("input");
     if (name) {
@@ -82,9 +84,23 @@ try {
   await shot("06-journal-search.png");
 
   await page.evaluate(() => {
+    [...document.querySelectorAll(".chips button")].find((button) => button.textContent === "Green tea")?.click();
+  });
+  await page.waitForSelector('[data-testid="journal-no-matches"]');
+  await page.evaluate(() => {
+    [...document.querySelectorAll(".chips button")].find((button) => button.textContent === "All")?.click();
+  });
+  await page.waitForFunction(() => document.body.innerText.includes("Rock oolong Saturday"));
+
+  await page.evaluate(() => {
     [...document.querySelectorAll(".bottom-nav button")].find((button) => button.textContent === "Data")?.click();
   });
   await page.waitForFunction(() => document.body.innerText.includes("Export my journal"));
+  const noticeToggle = await page.$('[data-testid="notice-enabled"]');
+  assert.ok(noticeToggle);
+  const noticeOn = await page.$eval('[data-testid="notice-enabled"]', (el) => el.checked);
+  assert.equal(noticeOn, true);
+  await page.waitForFunction(() => document.body.innerText.includes("Yellow tea · Grandpa style"));
   const fixture = join(root, "fixtures/sample-journal.v1.json");
   const fileInput = await page.$('input[type="file"]');
   await fileInput.uploadFile(fixture);
@@ -111,7 +127,7 @@ try {
     join(shots, "smoke-log.txt"),
     [
       "Mobile web smoke passed at 390x844.",
-      "Flows: brew oolong gongfu, start/pause timer, reload recovery, journal edit/search, fixture import merge.",
+      "Flows: brew oolong gongfu, start/pause timer, reload recovery, journal edit/search/family-filter, entry family select, notice toggle, fixture import merge.",
       "No operating-system alarm was invoked.",
       "Founder phone prototypes were not used.",
     ].join("\n"),

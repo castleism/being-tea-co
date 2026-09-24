@@ -56,3 +56,15 @@ test("tisanes and masala chai do not ship a invented recipe timer", () => {
   assert.deepEqual(tisane?.houseTimerSeconds, []);
   assert.deepEqual(chai?.houseTimerSeconds, []);
 });
+
+test("grandpa and bowl pairings stay on families the approved method names", () => {
+  const grandpa = startingPoints.filter((point) => point.methodSlug === "grandpa-style");
+  assert.deepEqual(
+    grandpa.map((point) => point.familySlug).sort(),
+    ["green", "oolong", "white", "yellow"],
+  );
+  const bowl = startingPoints.filter((point) => point.methodSlug === "leaves-in-a-bowl");
+  assert.ok(bowl.every((point) => ["white", "green", "yellow", "oolong"].includes(point.familySlug)));
+  const yellowGrandpa = startingPoints.find((point) => point.id === "yellow__grandpa-style");
+  assert.deepEqual(yellowGrandpa?.houseTimerSeconds, [120]);
+});

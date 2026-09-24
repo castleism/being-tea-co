@@ -212,6 +212,19 @@ textarea { min-height: 88px; resize: vertical; }
   margin-bottom: 14px;
 }
 
+.choice-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.choice-row input[type="checkbox"] {
+  width: auto;
+  margin-top: 3px;
+}
+.choice-row span {
+  line-height: 1.45;
+}
+
 .entry-card {
   width: 100%;
   text-align: left;

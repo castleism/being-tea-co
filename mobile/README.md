@@ -14,8 +14,10 @@ Phone-test prototypes on founder devices are **not** in this cloud checkout.
 - Persistent tasting journal with edit, search, delete, and safe JSON
   export/import (schema allowlist, key rejection, merge or replace).
 - An in-app foreground chime, optional haptic, and optional local infusion
-  notice if the OS grants permission. **That notice is not a guaranteed
-  alarm after the system stops the app.**
+  notice if the OS grants permission. Native Android builds create the
+  `being-tea-infusion` notification channel before scheduling. **That
+  notice is not a guaranteed alarm after the system stops the app.** A
+  Data-tab toggle can disable scheduling without deleting the journal.
 - Keep-awake while a timer is running on native builds.
 - Native share/export, CSV, family filter, and editable saved sessions.
 - A labeled fixture file for import testing. The journal starts empty.
@@ -76,9 +78,10 @@ npm run android:apk
 If the SDK is missing, the web build still verifies the same logic. Do not
 claim an APK exists unless that file was actually produced.
 
-This APK declares `POST_NOTIFICATIONS`, `WAKE_LOCK`, and
-`RECEIVE_BOOT_COMPLETED` because of the local-notice and keep-awake
-plugins. Those permissions do not mean a lock-screen alarm was device-tested.
+The source Android manifest now declares `INTERNET`, `VIBRATE`,
+`WAKE_LOCK`, `POST_NOTIFICATIONS`, and `RECEIVE_BOOT_COMPLETED`. Those
+permissions do not mean a lock-screen alarm was device-tested. Android 8+
+notices use channel `being-tea-infusion` and status-bar icon `ic_stat_tea`.
 
 ## iOS
 

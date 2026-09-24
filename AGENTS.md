@@ -46,8 +46,8 @@ The companion is local-only through the current milestones:
 2. An adjustable infusion timer with pause/resume and relaunch recovery.
 3. A persistent tasting journal with edit, search, and safe export/import.
 4. Native share/CSV, Preferences persistence, keep-awake, and optional local
-   infusion notices. Notices are not guaranteed alarms and must not be marketed
-   until a human device test exists.
+   infusion notices on Android channel `being-tea-infusion`. Notices are not
+   guaranteed alarms and must not be marketed until a human device test exists.
 5. An iOS project that still needs Xcode on a Mac.
 
 Timer recovery uses persisted wall-clock state. An in-app chime may play

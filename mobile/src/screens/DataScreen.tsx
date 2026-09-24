@@ -7,12 +7,29 @@ import fixtureRaw from "../../fixtures/sample-journal.v1.json?raw";
 
 export function DataScreen() {
   const store = useBrewStore();
-  const { entries } = useBrewState();
+  const { entries, noticeEnabled } = useBrewState();
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState<{ preview: ImportPreview; bundle: ExportBundle } | null>(null);
 
   return (
     <div className="stack">
+      <section className="card">
+        <h2>Infusion notice</h2>
+        <label className="choice-row">
+          <input
+            type="checkbox"
+            data-testid="notice-enabled"
+            checked={noticeEnabled}
+            onChange={(event) => store.setNoticeEnabled(event.target.checked)}
+          />
+          <span>
+            Schedule an optional local infusion notice while a timer is running
+            on a native build. This is not a guaranteed alarm after the system
+            stops the app. Web preview never schedules an operating-system
+            notice.
+          </span>
+        </label>
+      </section>
       <section className="card">
         <h2>Export</h2>
         <p className="muted">

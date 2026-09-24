@@ -105,3 +105,27 @@ test("user-saved sessions can be renamed and have infusions edited", () => {
   assert.equal(updated?.name, "Sunday oolong");
   assert.deepEqual(updated?.infusions.map((item) => item.durationSeconds), [15, 25, 35]);
 });
+
+test("notice preference hydrates as enabled when older saves omit the field", () => {
+  const memory = {
+    value: JSON.stringify({
+      version: 1,
+      activeSession: null,
+      templates: [],
+      entries: [],
+    }),
+  };
+  const store = createBrewStore({
+    persistence: {
+      load: () => memory.value,
+      save: (value) => {
+        memory.value = value;
+      },
+    },
+    now: () => Date.parse("2026-09-20T08:00:00.000Z"),
+  });
+  assert.equal(store.getState().noticeEnabled, true);
+  store.setNoticeEnabled(false);
+  assert.equal(store.getState().noticeEnabled, false);
+  assert.equal(JSON.parse(memory.value).noticeEnabled, false);
+});

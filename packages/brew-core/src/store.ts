@@ -29,6 +29,7 @@ export function emptyState(nowIso: string): BrewState {
     activeSession: null,
     templates: listBuiltInTemplates(nowIso),
     entries: [],
+    noticeEnabled: true,
   };
 }
 
@@ -53,6 +54,7 @@ export function hydrateState(raw: unknown, nowIso: string, nowMs: number): BrewS
     activeSession,
     templates,
     entries: Array.isArray(value.entries) ? value.entries : [],
+    noticeEnabled: value.noticeEnabled !== false,
   };
 }
 
@@ -254,6 +256,9 @@ export function createBrewStore(options: {
     },
     replaceActive(session: ActiveBrewSession | null) {
       return commit({ ...state, activeSession: session });
+    },
+    setNoticeEnabled(enabled: boolean) {
+      return commit({ ...state, noticeEnabled: enabled });
     },
   };
 }

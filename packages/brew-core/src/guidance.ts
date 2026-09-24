@@ -523,6 +523,126 @@ export const startingPoints: StartingPoint[] = [
     reusable: true,
     allowsTemperatureDisplay: true,
   }),
+  point({
+    id: "yellow__grandpa-style",
+    familySlug: "yellow",
+    familyName: "Yellow tea",
+    methodSlug: "grandpa-style",
+    methodName: "Grandpa style",
+    familyBrewQuote:
+      "Start with 2–3 g per 250 mL at 75–85°C / 167–185°F for 2–3 minutes, then prioritize credible maker instructions.",
+    methodStartingPointQuote:
+      "Start lightly—about 2–3 g in a 300 mL vessel—and refill before the water level falls below the leaf.",
+    methodWatchQuote:
+      "Avoid very small broken leaf and do not drink leaf fragments that make the experience unpleasant.",
+    sources: [YELLOW_PROCESS, ISO, TAIWAN_BREW],
+    infusionMode: "continuous",
+    houseTimerSeconds: seconds([120]),
+    timerNote:
+      "Optional house comfort wait only. Grandpa style is drink-and-refill; the approved method names large-leaf and easygoing tea. The family text does not publish a grandpa second-count.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
+  point({
+    id: "oolong__grandpa-style",
+    familySlug: "oolong",
+    familyName: "Oolong",
+    methodSlug: "grandpa-style",
+    methodName: "Grandpa style",
+    familyBrewQuote:
+      "Western start: 2.5–4 g per 250 mL at 85–100°C / 185–212°F for 2–4 minutes. Gongfu start: about 5–8 g per 100–120 mL with brief, fully decanted infusions.",
+    methodStartingPointQuote:
+      "Start lightly—about 2–3 g in a 300 mL vessel—and refill before the water level falls below the leaf.",
+    methodWatchQuote:
+      "Avoid very small broken leaf and do not drink leaf fragments that make the experience unpleasant.",
+    sources: [OOLONG_BRUISE, TAIWAN_BREW],
+    infusionMode: "continuous",
+    houseTimerSeconds: seconds([120]),
+    timerNote:
+      "Optional house comfort wait only. Grandpa style is drink-and-refill; the approved method names large-leaf and easygoing tea. This is not a gongfu sequence.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
+  point({
+    id: "white__flash-chilled",
+    familySlug: "white",
+    familyName: "White tea",
+    methodSlug: "flash-chilled",
+    methodName: "Flash-chilled iced tea",
+    familyBrewQuote:
+      "Start with 2.5–3.5 g per 250 mL at 80–90°C / 176–194°F for 3–5 minutes. Mature, compressed or leaf-heavy white tea may welcome hotter water.",
+    methodStartingPointQuote:
+      "Use roughly double normal leaf or reduce hot water so the melting ice completes the intended final volume.",
+    methodWatchQuote:
+      "Ice is part of the recipe, not decoration. Weigh it or accept that each batch will dilute differently.",
+    sources: [MAFF_COLD, ISO, PROCESSED_TEA],
+    infusionMode: "single",
+    houseTimerSeconds: seconds([180]),
+    timerNote:
+      "The hot-concentrate timer uses the low end of the white-tea Western range. Ice volume is part of the method and is not timed here.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
+  point({
+    id: "yellow__flash-chilled",
+    familySlug: "yellow",
+    familyName: "Yellow tea",
+    methodSlug: "flash-chilled",
+    methodName: "Flash-chilled iced tea",
+    familyBrewQuote:
+      "Start with 2–3 g per 250 mL at 75–85°C / 167–185°F for 2–3 minutes, then prioritize credible maker instructions.",
+    methodStartingPointQuote:
+      "Use roughly double normal leaf or reduce hot water so the melting ice completes the intended final volume.",
+    methodWatchQuote:
+      "Ice is part of the recipe, not decoration. Weigh it or accept that each batch will dilute differently.",
+    sources: [MAFF_COLD, YELLOW_PROCESS],
+    infusionMode: "single",
+    houseTimerSeconds: seconds([120]),
+    timerNote:
+      "The hot-concentrate timer uses the low end of the yellow-tea Western range. Ice volume is part of the method and is not timed here.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
+  point({
+    id: "yellow__leaves-in-a-bowl",
+    familySlug: "yellow",
+    familyName: "Yellow tea",
+    methodSlug: "leaves-in-a-bowl",
+    methodName: "Leaves in a bowl",
+    familyBrewQuote:
+      "Start with 2–3 g per 250 mL at 75–85°C / 167–185°F for 2–3 minutes, then prioritize credible maker instructions.",
+    methodStartingPointQuote:
+      "Use very little large whole leaf, comfortable-temperature water and enough room for the leaf to settle.",
+    methodWatchQuote:
+      "This contemporary practice source should be credited. Do not turn a simple method into an invented ancient or religious claim.",
+    sources: [LIVING_TEA, YELLOW_PROCESS],
+    infusionMode: "continuous",
+    houseTimerSeconds: seconds([]),
+    timerNote:
+      "No published second-count. Start a user-set timer only if you want a personal pause before the first sip. Prefer large whole leaf; bud-only yellow tea may not suit this method.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
+  point({
+    id: "oolong__leaves-in-a-bowl",
+    familySlug: "oolong",
+    familyName: "Oolong",
+    methodSlug: "leaves-in-a-bowl",
+    methodName: "Leaves in a bowl",
+    familyBrewQuote:
+      "Western start: 2.5–4 g per 250 mL at 85–100°C / 185–212°F for 2–4 minutes. Gongfu start: about 5–8 g per 100–120 mL with brief, fully decanted infusions.",
+    methodStartingPointQuote:
+      "Use very little large whole leaf, comfortable-temperature water and enough room for the leaf to settle.",
+    methodWatchQuote:
+      "This contemporary practice source should be credited. Do not turn a simple method into an invented ancient or religious claim.",
+    sources: [LIVING_TEA, TAIWAN_BREW],
+    infusionMode: "continuous",
+    houseTimerSeconds: seconds([]),
+    timerNote:
+      "No published second-count. Start a user-set timer only if you want a personal pause before the first sip. Prefer large open leaf, not tightly rolled or broken oolong.",
+    reusable: true,
+    allowsTemperatureDisplay: true,
+  }),
 ];
 
 export function getStartingPoint(id: string): StartingPoint | undefined {
@@ -537,6 +657,14 @@ export function listFamilies(): Array<{ slug: string; name: string }> {
   const seen = new Map<string, string>();
   for (const point of startingPoints) {
     if (!seen.has(point.familySlug)) seen.set(point.familySlug, point.familyName);
+  }
+  return [...seen].map(([slug, name]) => ({ slug, name }));
+}
+
+export function listMethods(): Array<{ slug: string; name: string }> {
+  const seen = new Map<string, string>();
+  for (const point of startingPoints) {
+    if (!seen.has(point.methodSlug)) seen.set(point.methodSlug, point.methodName);
   }
   return [...seen].map(([slug, name]) => ({ slug, name }));
 }

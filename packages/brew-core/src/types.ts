@@ -128,6 +128,11 @@ export type BrewState = {
   activeSession: ActiveBrewSession | null;
   templates: BrewSessionTemplate[];
   entries: TastingEntry[];
+  /**
+   * When true, a native build may request permission and schedule a local
+   * infusion notice. Default true. This is not a guaranteed alarm.
+   */
+  noticeEnabled: boolean;
 };
 
 export type ImportPreview = {

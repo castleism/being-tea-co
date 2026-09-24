@@ -3,7 +3,7 @@
 Status: draft for the local companion. This is not a published storefront
 page and does not change the website privacy policy.
 
-Last updated: 20 September 2026
+Last updated: 24 September 2026
 
 ## What this app stores
 
@@ -20,8 +20,9 @@ analytics pixel, advertising SDK, or cloud sync in the current build.
 
 ## Notifications and keep-awake
 
-If you grant notification permission, the app may schedule a local
-infusion-done notice for the current timer. That notice is not a
+If you grant notification permission and leave the in-app notice toggle
+on, the app may schedule a local infusion-done notice for the current
+timer on Android channel `being-tea-infusion`. That notice is not a
 guaranteed alarm after the system stops the app. While a timer is
 running in the foreground, the app may request that the screen stay
 awake.

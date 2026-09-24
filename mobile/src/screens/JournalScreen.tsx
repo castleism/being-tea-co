@@ -49,9 +49,13 @@ export function JournalScreen({ onEdit }: { onEdit: (entry: TastingEntry) => voi
         </button>
       </div>
       {results.length === 0 ? (
-        <div className="card">
-          <h2>No tastings yet</h2>
-          <p className="muted">Your journal is empty. Fixtures are not loaded as your notes.</p>
+        <div className="card" data-testid={entries.length === 0 ? "journal-empty" : "journal-no-matches"}>
+          <h2>{entries.length === 0 ? "No tastings yet" : "No tastings match"}</h2>
+          <p className="muted">
+            {entries.length === 0
+              ? "Your journal is empty. Fixtures are not loaded as your notes."
+              : "Nothing in this journal matches the current search or family filter. Clear the filter to see your notes."}
+          </p>
         </div>
       ) : (
         <div className="stack">

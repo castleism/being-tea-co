@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { entriesToCsv } from "../src/exportImport.ts";
 import { createEntry, searchEntries } from "../src/journal.ts";
-import { completionNotice } from "../src/notices.ts";
+import { completionNotice, NOTICE_CHANNEL_ID, NOTICE_IDS } from "../src/notices.ts";
 import { createIdleTimer, startTimer } from "../src/timer.ts";
 
 test("completion notices exist only for a running timer", () => {
@@ -13,6 +13,8 @@ test("completion notices exist only for a running timer", () => {
   const notice = completionNotice(running, t0, { infusionLabel: "Infusion 1", sessionName: "Oolong" });
   assert.ok(notice);
   assert.equal(notice.fireAtMs, t0 + 30_000);
+  assert.equal(notice.channelId, NOTICE_CHANNEL_ID);
+  assert.equal(notice.id, NOTICE_IDS[0]);
   assert.match(notice.body, /not a guaranteed background alarm/);
 });
 

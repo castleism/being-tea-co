@@ -109,11 +109,15 @@ function AppReady({ store }: { store: BrewStore }) {
     const session = state.activeSession;
     const running = session?.timer.status === "running";
     void syncKeepAwake(Boolean(running));
-    void syncInfusionNotice(session?.timer, {
-      infusionLabel: session?.infusions[session.currentInfusionIndex]?.label,
-      sessionName: session?.name,
-    });
-  }, [state.activeSession]);
+    void syncInfusionNotice(
+      session?.timer,
+      {
+        infusionLabel: session?.infusions[session.currentInfusionIndex]?.label,
+        sessionName: session?.name,
+      },
+      state.noticeEnabled,
+    );
+  }, [state.activeSession, state.noticeEnabled]);
 
   useEffect(() => {
     const session = state.activeSession;

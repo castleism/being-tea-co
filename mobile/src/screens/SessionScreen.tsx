@@ -34,7 +34,7 @@ export function SessionScreen({
         <div className="timer-ring" data-timer-status={activeSession.timer.status}>
           <strong data-testid="timer-readout">{formatDuration(remainingMs)}</strong>
         </div>
-        <p className="muted">
+        <p className="muted" aria-live="polite">
           {infusion ? infusion.label : "User-set timer"} · {activeSession.timer.status}
         </p>
       </div>
