@@ -4,7 +4,25 @@ import { LocalNotifications } from "@capacitor/local-notifications";
 import { KeepAwake } from "@capacitor-community/keep-awake";
 import { completionNotice, type TimerSnapshot } from "@brew-core";
 
-let lastNoticeKey = "";
+import { createNoticeSync } from "../../packages/brew-core/src/noticeSync.ts";
+
+const syncNotice = createNoticeSync({
+  async cancelPending() {
+    // This app schedules only infusion notices. Include every pending ID,
+    // including long sessions and notices left by a previous app process.
+    const { notifications } = await LocalNotifications.getPending();
+    if (notifications.length) await LocalNotifications.cancel({ notifications });
+  },
+  async permitted() {
+    return (await LocalNotifications.requestPermissions()).display === "granted";
+  },
+  async schedule(notice) {
+    await LocalNotifications.schedule({ notifications: [{
+      id: notice.id, title: notice.title, body: notice.body,
+      schedule: { at: new Date(notice.fireAtMs) },
+    }] });
+  },
+});
 
 export async function syncKeepAwake(running: boolean) {
   if (!Capacitor.isNativePlatform()) return;
@@ -29,27 +47,6 @@ export async function syncInfusionNotice(
   snapshot: TimerSnapshot | undefined,
   extras: { infusionLabel?: string; sessionName?: string } = {},
 ) {
-  if (!Capacitor.isNativePlatform() || !snapshot) return;
-  const notice = completionNotice(snapshot, Date.now(), extras);
-  const key = notice ? `${notice.id}:${notice.fireAtMs}` : "none";
-  if (key === lastNoticeKey) return;
-  lastNoticeKey = key;
-  try {
-    await LocalNotifications.cancel({ notifications: [{ id: 7100 }, { id: 7101 }, { id: 7102 }, { id: 7103 }, { id: 7104 }, { id: 7105 }, { id: 7106 }, { id: 7107 }, { id: 7108 }, { id: 7109 }] });
-    if (!notice) return;
-    const permission = await LocalNotifications.requestPermissions();
-    if (permission.display !== "granted") return;
-    await LocalNotifications.schedule({
-      notifications: [
-        {
-          id: notice.id,
-          title: notice.title,
-          body: notice.body,
-          schedule: { at: new Date(notice.fireAtMs) },
-        },
-      ],
-    });
-  } catch {
-    // Permission denial or plugin absence falls back to in-app chime only.
-  }
+  if (!Capacitor.isNativePlatform()) return;
+  await syncNotice(snapshot ? completionNotice(snapshot, Date.now(), extras) : null);
 }

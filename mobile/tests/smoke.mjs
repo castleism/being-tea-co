@@ -55,6 +55,17 @@ try {
   assert.match(recovered, /Session recovered after relaunch|Timer restored from saved wall-clock state|paused|Resume/);
   await shot("04-relaunch-recovery.png");
 
+  // A foreground countdown must persist completion without a reload or focus event.
+  await page.type('input[inputmode="numeric"]', "5");
+  await page.evaluate(() => {
+    [...document.querySelectorAll("button")].find(b => b.textContent === "Apply duration")?.click();
+  });
+  await page.evaluate(() => {
+    [...document.querySelectorAll("button")].find(b => b.textContent === "Start" || b.textContent === "Resume")?.click();
+  });
+  await page.waitForFunction(() => document.querySelector("[data-timer-status]")?.getAttribute("data-timer-status") === "completed");
+  assert.equal(await page.$eval('[data-testid="timer-readout"]', el => el.textContent), "0:00");
+
   await page.evaluate(() => {
     [...document.querySelectorAll("button")].find((button) => button.textContent === "Log tasting from this session")?.click();
   });
@@ -111,7 +122,7 @@ try {
     join(shots, "smoke-log.txt"),
     [
       "Mobile web smoke passed at 390x844.",
-      "Flows: brew oolong gongfu, start/pause timer, reload recovery, journal edit/search, fixture import merge.",
+      "Flows: brew oolong gongfu, start/pause timer, reload recovery, foreground completion, journal edit/search, fixture import merge.",
       "No operating-system alarm was invoked.",
       "Founder phone prototypes were not used.",
     ].join("\n"),

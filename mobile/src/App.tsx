@@ -7,7 +7,7 @@ import {
   type BrewStore,
   type TastingEntry,
 } from "@brew-core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { playForegroundChime, resetChimeGuard } from "./audio.ts";
 import { pulseCompletion, syncInfusionNotice, syncKeepAwake } from "./runtime.ts";
 import { BrewScreen } from "./screens/BrewScreen.tsx";
@@ -50,6 +50,7 @@ function AppReady({ store }: { store: BrewStore }) {
   const [tab, setTab] = useState<Tab>(state.activeSession ? "session" : "brew");
   const [editingEntry, setEditingEntry] = useState<TastingEntry | null>(null);
   const [, setTick] = useState(0);
+  const pulsedCompletion = useRef("");
 
   useEffect(() => {
     const unsubscribe = store.subscribe(setState);
@@ -101,9 +102,15 @@ function AppReady({ store }: { store: BrewStore }) {
   useEffect(() => {
     const timer = state.activeSession?.timer;
     if (timer?.status !== "running") return;
-    const id = window.setInterval(() => setTick((value) => value + 1), 250);
+    const id = window.setInterval(() => {
+      const current = store.getState().activeSession?.timer;
+      if (current?.status === "running" && remainingMsAt(current, Date.now()) <= 0) {
+        store.recoverOnOpen();
+      }
+      setTick((value) => value + 1);
+    }, 250);
     return () => window.clearInterval(id);
-  }, [state.activeSession?.timer.status]);
+  }, [store, state.activeSession?.timer.status]);
 
   useEffect(() => {
     const session = state.activeSession;
@@ -123,9 +130,13 @@ function AppReady({ store }: { store: BrewStore }) {
     if (session.timer.status === "completed" || remaining <= 0 && session.timer.status === "running") {
       const key = `${session.id}:${session.currentInfusionIndex}:${session.timer.completedAtMs ?? "done"}`;
       playForegroundChime(key);
-      void pulseCompletion();
+      if (pulsedCompletion.current !== key) {
+        pulsedCompletion.current = key;
+        void pulseCompletion();
+      }
     } else {
       resetChimeGuard();
+      pulsedCompletion.current = "";
     }
   }, [state.activeSession]);
 
