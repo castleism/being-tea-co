@@ -17,11 +17,10 @@ These remain human-gated. They are not unfinished coding tasks in this repo:
 - Start account sync or any paid service
 - Add pairings that are not already supported by `app/content/library.ts`
 
-An Android emulator was started in an earlier session of this environment.
-QEMU came up, but `adb` stayed **offline**, so the APK was not installed on a
-running guest. This continuation also has no Android SDK / `adb` on PATH
-unless those tools are reinstalled. That is an environment limit, not missing
-app code.
+On 24 September 2026 the debug APK was installed on a headless API 34 AVD
+(`being-tea-api34`). `adb` came online after boot. That unblocks sideload in
+this environment. Shade/lock-screen notice delivery after Doze or a force-stop
+is still not claimed.
 
 ## Milestone 1 — Brewing sessions, timer, journal
 
@@ -44,22 +43,24 @@ app code.
 | Journal family filter + user-session editor | **Verified** | Unit tests + UI; empty vs no-match copy |
 | Entry family/method selectors | **Verified** | Smoke asserts oolong after logging a session |
 | Keep-awake while a timer is running | **Implemented, not device-observed** | `@capacitor-community/keep-awake`; APK includes `WAKE_LOCK` |
-| Local infusion notice (optional permission) | **Implemented, not device-observed** | Android 8+ channel `being-tea-infusion`; `createChannel` + `channelId`; status-bar icon `ic_stat_tea`; in-app toggle; schedule/cancel logic unit-tested. UI says this is not a guaranteed alarm |
+| Local infusion notice (optional permission) | **Wired and partly observed** | Channel `being-tea-infusion` existed on the API 34 guest; logcat showed `createChannel`/`schedule`. Exact alarms were **not** allowed, so the plugin used an inexact alarm. A foreground 5s run emitted `localNotificationReceived`. A 20s backgrounded run still had `RTC_WAKEUP` pending after 22s. Shade/lock-screen pixels were not confirmed |
 | Foreground haptic on completion | **Implemented, not device-observed** | Capacitor Haptics; silent on web |
 | Android back button | **Implemented, not device-observed** | Capacitor `backButton` |
 | In-app about/privacy | **Verified** | Data tab; `docs/mobile-privacy.md` |
 | iOS Xcode project | **Added, not compiled** | `npx cap add ios`; `ITSAppUsesNonExemptEncryption` = false; no `xcodebuild` here |
 | Play internal testing draft | **Draft only** | `docs/play-internal-testing-draft.md` — no upload |
-| Emulator sideload | **Blocked** | Earlier session: emulator process started; adb remained offline. This session: SDK/`adb` not on PATH |
+| Emulator sideload | **Verified** | `adb install` of `co.beingtea.companion` on API 34; WebView UI via uiautomator; wall-clock recovery after Home |
 
 ### Honest limits
 
 - Local notices and keep-awake are real native wiring, not store-claimed
-  background alarms. They have not been watched on a booted Android guest or
-  phone. Creating a notification channel does not prove lock-screen delivery.
-- The APK was assembled and inspected with `aapt` (`INTERNET`, `VIBRATE`,
-  `WAKE_LOCK`, `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`). It was not
-  installed on a running Android OS in this checkout.
+  background alarms. This environment created the Android 8+ channel and
+  scheduled a `TimedNotificationPublisher` alarm. Exact alarms were denied on
+  the AVD, so delivery after the app is backgrounded is **not** guaranteed and
+  was not lock-screen confirmed.
+- The APK was assembled, inspected with `aapt`, and installed on an API 34
+  emulator. Permissions: `INTERNET`, `VIBRATE`, `WAKE_LOCK`,
+  `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`.
 - iOS needs a Mac, CocoaPods, and Xcode.
 - Store accounts exist (Google personal). Submissions stay human-gated.
 
@@ -77,10 +78,12 @@ app code.
 
 | Check | Result |
 | --- | --- |
-| `npm run test:brew-core` | **Passed** — 24 tests (24 Sep 2026 continuation; confirm after this revision) |
-| Mobile web smoke | **Pending this revision** — family filter, entry selects, notice toggle |
-| `mobile` production build | **Pending this revision** |
-| Android `assembleDebug` | **Pending this revision** if SDK is present |
+| `npm run test:brew-core` | **Passed** — 24 tests |
+| Mobile web smoke | **Passed** — `node mobile/tests/smoke.mjs` at 390×844, including family-filter no-match, entry family select, notice toggle |
+| Browser walkthrough | **Passed** — yellow grandpa start/pause/resume, journal filter, Data toggle |
+| `mobile` production build | **Passed** |
+| Android `assembleDebug` | **Passed** — 4.2 MB debug APK copied to artifacts |
+| Emulator `adb install` | **Passed** — API 34 guest; uiautomator confirmed brew UI and away-recovery copy |
+| Notice after background / Doze / force-stop | **Not confirmed** — inexact alarm fallback; no shade pixels |
 | iOS `xcodebuild` | **Not available** |
-| Emulator `adb install` | **Failed / unavailable** |
 | Storefront `npm test` | **Skipped** — no `app/` source changes |

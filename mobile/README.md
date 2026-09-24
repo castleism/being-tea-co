@@ -79,9 +79,12 @@ If the SDK is missing, the web build still verifies the same logic. Do not
 claim an APK exists unless that file was actually produced.
 
 The source Android manifest now declares `INTERNET`, `VIBRATE`,
-`WAKE_LOCK`, `POST_NOTIFICATIONS`, and `RECEIVE_BOOT_COMPLETED`. Those
-permissions do not mean a lock-screen alarm was device-tested. Android 8+
+`WAKE_LOCK`, `POST_NOTIFICATIONS`, and `RECEIVE_BOOT_COMPLETED`. Android 8+
 notices use channel `being-tea-infusion` and status-bar icon `ic_stat_tea`.
+On the API 34 emulator used here, the OS refused exact alarms and the
+plugin scheduled an inexact alarm instead. That is not a lock-screen alarm
+product, and shade delivery after the process is backgrounded is still
+unconfirmed.
 
 ## iOS
 
