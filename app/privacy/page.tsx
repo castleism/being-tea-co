@@ -57,8 +57,8 @@ export default function PrivacyPage() {
 
         <h2>External services and links</h2>
         <p>
-          Links to retailers, research sources, Instagram, X, YouTube,
-          WordPress, and other third parties take you to services that set
+          Links to retailers, research sources, X, YouTube, WordPress, and
+          other third parties take you to services that set
           their own privacy practices. Being Tea Co. does not control those
           sites. Review their notices before providing information.
         </p>

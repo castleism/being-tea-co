@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {
   SITE_DESCRIPTION,
+  SITE_IS_PUBLIC,
   SITE_NAME,
   SITE_URL,
 } from "./lib/site";
@@ -25,11 +26,11 @@ export const metadata: Metadata = {
     apple: "/logo.svg",
   },
   robots: {
-    index: true,
-    follow: true,
+    index: SITE_IS_PUBLIC,
+    follow: SITE_IS_PUBLIC,
     googleBot: {
-      index: true,
-      follow: true,
+      index: SITE_IS_PUBLIC,
+      follow: SITE_IS_PUBLIC,
       "max-image-preview": "large",
       "max-snippet": -1,
       "max-video-preview": -1,
@@ -67,7 +68,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <a className="skip-link" href="#main-content">Skip to main content</a>
+        <div id="main-content" tabIndex={-1}>{children}</div>
+      </body>
     </html>
   );
 }

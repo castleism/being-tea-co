@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "../../components/JsonLd";
 import { SiteFooter, SiteHeader } from "../../components/SiteChrome";
 import { RichText } from "../../components/RichText";
-import { blogs } from "../../content/blogs";
+import { publishedBlogs } from "../../content/blogs";
 import {
   SITE_NAME,
   SITE_URL,
@@ -14,7 +14,7 @@ import {
 } from "../../lib/site";
 
 export function generateStaticParams() {
-  return blogs.map((post) => ({ slug: post.slug }));
+  return publishedBlogs().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogs.find((item) => item.slug === slug);
+  const post = publishedBlogs().find((item) => item.slug === slug);
   if (!post) return {};
   const description = post.dek.replace(/\*/g, "");
   const base = pageMetadata({
@@ -53,10 +53,11 @@ export default async function JournalPost({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = blogs.find((item) => item.slug === slug);
+  const posts = publishedBlogs();
+  const post = posts.find((item) => item.slug === slug);
   if (!post) notFound();
-  const current = blogs.findIndex((item) => item.slug === slug);
-  const next = blogs[(current + 1) % blogs.length];
+  const current = posts.findIndex((item) => item.slug === slug);
+  const next = posts[(current + 1) % posts.length];
   const articleUrl = absoluteUrl(`/journal/${post.slug}`);
   const articleImage = absoluteUrl(
     `/images/journal/${post.id.toLowerCase()}.webp`,

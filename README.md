@@ -15,10 +15,11 @@ or the estate of Thích Nhất Hạnh.
   Pu-erh tea.
 - Practical Western, gongfu, grandpa-style, cold-brew, matcha, and simmered-tea
   preparation guides.
-- A twelve-article educational journal with source and evidence standards.
+- A twelve-article editorial collection with date-based release controls and
+  additional cultural- and health-language review holds where required.
 - About, contact, privacy, terms, and commercial-disclosure pages.
-- A researched shop roadmap for affiliate recommendations and no-inventory
-  merchandise. No paid product links are active in this release.
+- A public projects page for possible tea, tools, reading, and merchandise
+  studies. It contains no vendor applications or paid product links.
 
 The owner-only editorial studio, unpublished social captions, and their image
 bank are intentionally excluded from this public repository.
@@ -37,17 +38,17 @@ Requirements:
 
 - Node.js 22.13 or newer
 
-Install and run:
+Install and run with the repository lockfile:
 
 ```bash
-npm install
-npm run dev
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
 Validate the complete rendered site:
 
 ```bash
-npm test
+pnpm test
 ```
 
 ## Main project areas
@@ -57,13 +58,29 @@ npm test
 - `tests/` — rendered-route, search, disclosure, and unique-image checks.
 - `image-manifests/` — generation notes and asset provenance records.
 
-## Publishing
+## Release status
 
-GitHub is the public source and history for the project. The website itself is
-deployed through a host that permits commercial and affiliate use. GitHub Pages
-is intentionally not enabled because GitHub states that Pages is not intended
-or allowed as free hosting for an online business, e-commerce site, or a site
-primarily facilitating commercial transactions.
+GitHub is the source and history for this replacement candidate. The project is
+configured for OpenAI Sites, but a local build, hosting configuration, or
+staging URL is not proof that the candidate has replaced the public WordPress
+site at `beingteaco.com`. Deployment, domain routing, rollback ownership, and
+verified-live checks are recorded separately from local completion.
+
+Preview builds default to `noindex, nofollow` and a reserved non-public
+canonical origin. An approved public build must set both
+`NEXT_PUBLIC_SITE_URL` to the exact reviewed origin and
+`NEXT_PUBLIC_SITE_RELEASED=true`, plus `NEXT_PUBLIC_SITE_RELEASE_HOST` to the
+exact approved hostname. Release mode rejects non-HTTPS, localhost, reserved
+test hosts, and a URL/hostname mismatch. Setting these values is a release
+action, not an ordinary local-development step.
+
+Journal routes require an explicit approval entry and their Alaska release
+date. B10 and B11 remain held for cultural/source review, and B12 remains held
+for health-language/source review, even after approval and date gates pass.
+
+GitHub Pages is intentionally not enabled because GitHub states that Pages is
+not intended or allowed as free hosting for an online business, e-commerce
+site, or a site primarily facilitating commercial transactions.
 
 See [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).
 

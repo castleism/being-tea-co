@@ -12,7 +12,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         <Link href="/learn">Tea library</Link>
         <Link href="/brew">Brew</Link>
         <Link href="/journal">Journal</Link>
-        <Link href="/shop">Tea &amp; tools</Link>
+        <Link href="/shop">Projects</Link>
         <Link className="nav-cta" href="/about">
           About
         </Link>
@@ -35,14 +35,8 @@ export function SiteFooter() {
         <Link href="/disclosures">Disclosures</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/terms">Terms</Link>
-        <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer">
-          Instagram
-        </a>
         <a href={SOCIAL_LINKS.x} target="_blank" rel="noreferrer">
           X
-        </a>
-        <a href={SOCIAL_LINKS.aliaspaces} target="_blank" rel="noreferrer">
-          Brother Kāruṇya
         </a>
         <a href={SOCIAL_LINKS.archive} target="_blank" rel="noreferrer">
           Archive

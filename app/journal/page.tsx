@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "../components/SiteChrome";
-import { blogs } from "../content/blogs";
+import { publishedBlogs } from "../content/blogs";
 import { pageMetadata } from "../lib/site";
 
 export const metadata = pageMetadata({
@@ -14,20 +14,22 @@ export const metadata = pageMetadata({
 });
 
 export default function JournalPage() {
+  const posts = publishedBlogs();
+
   return (
     <main>
       <SiteHeader />
       <section className="inner-hero journal-hero">
-        <p className="eyebrow">Four months at the tea table</p>
+        <p className="eyebrow">Field notes from the tea table</p>
         <h1>Field notes for<br /><em>better attention.</em></h1>
         <p>
-          Twelve researched essays moving from the living plant through
-          processing, preparation, storage, culture and the felt experience of
-          drinking tea.
+          A growing series of researched essays moving from the living plant
+          through processing, preparation, storage, culture and the felt
+          experience of drinking tea.
         </p>
       </section>
       <section className="journal-grid">
-        {blogs.map((post, index) => (
+        {posts.map((post, index) => (
           <Link className={index === 0 ? "featured-post" : ""} href={`/journal/${post.slug}`} key={post.id}>
             <img
               src={`/images/journal/${post.id.toLowerCase()}.webp`}
