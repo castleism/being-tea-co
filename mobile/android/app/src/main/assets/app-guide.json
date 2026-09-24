@@ -1,0 +1,23 @@
+{
+  "name": "Being Tea",
+  "accent": "#315843",
+  "purpose": "your daily tea ritual",
+  "intro": "A brewing companion for keeping track of an infusion, noticing what you taste, and learning what you enjoy.",
+  "features": [
+    "Choose a tea family and explore the supported brewing methods.",
+    "Start, pause and resume an infusion timer.",
+    "Save, edit and search tasting notes, with backup tools for your journal."
+  ],
+  "demo": [
+    "Choose a tea family you already have, then read its method and starting-point guidance.",
+    "Start a session; pause or adjust your timing as you explore the timer.",
+    "After brewing, save what you noticed in a tasting note. This example does not start a timer or save a note."
+  ],
+  "setup": [
+    "Choose your usual tea family and review the suggested method.",
+    "Try the timer while the app is open before relying on it.",
+    "Locate journal export/import and make a backup after your first tasting."
+  ],
+  "boundary": "Brewing guidance uses the approved library. Background and lock-screen timer notifications still need device testing; keep the timer visible when timing matters.",
+  "privacy": "The tasting journal is local. Sharing or importing is your choice; cloud sync is not set up by this guide."
+}

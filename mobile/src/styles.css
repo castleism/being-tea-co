@@ -236,3 +236,18 @@ h2.section {
   font-size: 22px;
   font-weight: 500;
 }
+
+
+/* Approved September visual direction. Decoration never carries essential meaning. */
+.brand-art{display:block;width:min(100%,280px);height:96px;margin:8px auto 22px}
+button,input,select,summary{min-height:48px}summary{cursor:pointer;padding:14px 0;font-weight:600}
+details{border-top:1px solid #ddd7ce;padding:0 2px}details[open]{padding-bottom:16px}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #937149;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+.topbar{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--line)}
+.topbar h1 em{color:var(--forest)}.page{max-width:680px;width:100%;margin:auto;padding:24px}
+.bottom-nav{position:sticky;bottom:0;z-index:3}.bottom-nav button{min-height:60px}
+.timer-ring{border:2px solid var(--forest);outline:1px solid #c4a669;outline-offset:7px;margin:12px;font-family:Georgia,serif;background:var(--paper)}
+.card,.choice,.entry-card{padding:20px;border-radius:20px}.stack{gap:18px}
+.ritual-title{font:32px/1.15 Georgia,serif;margin:0;text-align:center}

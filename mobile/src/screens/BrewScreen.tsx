@@ -24,11 +24,14 @@ export function BrewScreen({ onStarted }: { onStarted: () => void }) {
 
   return (
     <div className="stack">
+      <svg aria-hidden="true" className="brand-art" viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg"><path d="M143 140Q121 96 179 13M143 111Q82 102 103 62Q150 69 143 111M153 77Q207 68 203 29Q156 27 153 77" fill="#d4dfcf" stroke="#28503b" strokeWidth="2"/><path d="M114 133Q185 126 212 139" fill="none" stroke="#a78037"/></svg>
+      <h2 className="ritual-title">A moment, steeped.</h2>
+      <details><summary>About these starting points</summary>
       <p className="legal">
         Starting points are copied from the approved tea library. House timer
         defaults use the low end of a published range, or a brief reusable
         sequence when the source only says “brief.” They are not health claims.
-      </p>
+      </p></details>
       <label>
         Tea family
         <select
@@ -47,6 +50,17 @@ export function BrewScreen({ onStarted }: { onStarted: () => void }) {
           ))}
         </select>
       </label>
+      {selected ? (<>           <div className="actions" style={{ marginTop: 14 }}>
+            <button
+              className="btn"
+              onClick={() => {
+                const template = state.templates.find((item) => item.guidanceId === selected.id && item.origin === "approved-guidance");
+                if (template) startFromTemplate(template);
+              }}
+            >
+              Start this session
+            </button>
+          </div> </>) : null}
       <div className="stack">
         {methods.map((point) => (
           <button
@@ -67,7 +81,7 @@ export function BrewScreen({ onStarted }: { onStarted: () => void }) {
         ))}
       </div>
       {selected ? (
-        <section className="card">
+        <details className="card"><summary>Method details & sources</summary>
           <p className="kicker">Approved method starting point</p>
           <h2>{selected.familyName} · {selected.methodName}</h2>
           <p className="quote">{selected.methodStartingPointQuote}</p>
@@ -80,18 +94,8 @@ export function BrewScreen({ onStarted }: { onStarted: () => void }) {
               </a>
             ))}
           </div>
-          <div className="actions" style={{ marginTop: 14 }}>
-            <button
-              className="btn"
-              onClick={() => {
-                const template = state.templates.find((item) => item.guidanceId === selected.id && item.origin === "approved-guidance");
-                if (template) startFromTemplate(template);
-              }}
-            >
-              Start this session
-            </button>
-          </div>
-        </section>
+
+        </details>
       ) : null}
 
       <h2 className="section">Reusable sessions you saved</h2>

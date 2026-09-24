@@ -81,3 +81,14 @@ an environment limit, not missing app code.
 | iOS `xcodebuild` | **Not available** |
 | Emulator `adb install` | **Failed** — device offline |
 | Storefront `npm test` | **Skipped** — no `app/` source changes |
+
+
+## Design and phone checkpoint — 23 September 2026
+
+Forest/paper brewing interface, session action above method detail, collapsible guidance and tasting journal retained.
+
+Android debug build and automated checks passed; signature verified, installed in place and launched on Samsung SM-N986U1. This is not full workflow or store-release verification.
+
+Remaining: Device-lock/process-death notification verification, iOS build and store preparation.
+
+Portfolio evidence: `mobile-publishing-2026-09-20/design-apks/phone-verification.json`, app build log, and `DESIGN-ROADMAP-STATUS.md`. Older environment limitations above are historical; the phone is now connected.
