@@ -9,7 +9,9 @@ export function AboutScreen() {
         <p className="quote">
           Being Tea Co. is independent tea-culture education. This companion
           keeps brewing sessions and tasting notes on the device. It does not
-          replace the public storefront.
+          replace the public storefront. The web preview can be installed as a
+          Progressive Web App. That install is not the Android APK and does
+          not schedule native infusion notices.
         </p>
         <p className="muted">
           Starting points are copied from the approved tea library. House timer

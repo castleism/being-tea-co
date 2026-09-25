@@ -25,6 +25,14 @@ async function shot(name) {
 }
 
 try {
+  const manifestRes = await page.goto("http://127.0.0.1:5174/manifest.webmanifest", {
+    waitUntil: "networkidle0",
+  });
+  assert.equal(manifestRes?.ok(), true);
+  const manifest = await manifestRes.json();
+  assert.equal(manifest.display, "standalone");
+  assert.ok(manifest.icons?.length >= 2);
+
   await page.goto("http://127.0.0.1:5174/", { waitUntil: "networkidle0" });
   await page.waitForFunction(() => document.body.innerText.includes("Tea family"));
   const title = await page.$eval(".topbar h1", (el) => el.textContent);

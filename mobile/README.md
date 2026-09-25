@@ -23,6 +23,10 @@ Phone-test prototypes on founder devices are **not** in this cloud checkout.
 - A labeled fixture file for import testing. The journal starts empty.
 - An iOS Xcode project (`mobile/ios`) that has not been compiled here.
 
+The web preview is an installable Progressive Web App (`manifest.webmanifest`
++ `sw.js`). Installing the PWA is not the same as the Android APK: it does
+not schedule native infusion notices.
+
 ## Web preview (smoke and daily use)
 
 ```bash

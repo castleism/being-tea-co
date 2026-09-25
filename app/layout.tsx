@@ -19,10 +19,20 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "Tea education",
   alternates: { canonical: "/" },
+  manifest: "/manifest.webmanifest",
+  themeColor: "#0f2a23",
+  appleWebApp: {
+    capable: true,
+    title: SITE_NAME,
+    statusBarStyle: "default",
+  },
   icons: {
-    icon: "/logo.svg",
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/icons/pwa-192.png", sizes: "192x192", type: "image/png" },
+    ],
     shortcut: "/logo.svg",
-    apple: "/logo.svg",
+    apple: "/icons/pwa-192.png",
   },
   robots: {
     index: true,
@@ -67,7 +77,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})})}",
+          }}
+        />
+      </body>
     </html>
   );
 }
