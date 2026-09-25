@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "Tea education",
   alternates: { canonical: "/" },
-  manifest: "/manifest.webmanifest",
   themeColor: "#0f2a23",
   appleWebApp: {
     capable: true,
@@ -77,6 +76,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.webmanifest" />
+      </head>
       <body>
         {children}
         <script

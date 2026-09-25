@@ -1,8 +1,9 @@
 # Mobile roadmap
 
-Status date: 24 September 2026  
+Status date: 25 September 2026  
 Checkout: public `being-tea-co` cloud workspace. Local phone-test prototypes
-were **not** present and were not accessed.
+were **not** present and were not accessed. No USB Android phone is attached
+to this VM (`adb devices` is empty of physical serials).
 
 ## What Cursor can still not do
 
@@ -16,11 +17,12 @@ These remain human-gated. They are not unfinished coding tasks in this repo:
 - Publish a public privacy URL, create a Play internal track, or upload an AAB
 - Start account sync or any paid service
 - Add pairings that are not already supported by `app/content/library.ts`
+- Plug in a founder phone with USB debugging and confirm sideload here
 
 On 24 September 2026 the debug APK was installed on a headless API 34 AVD
-(`being-tea-api34`). `adb` came online after boot. That unblocks sideload in
-this environment. Shade/lock-screen notice delivery after Doze or a force-stop
-is still not claimed.
+(`being-tea-api34`). On 25 September 2026 a fresh AVD stayed **offline**
+(QEMU up, guest idle, `adb` never reached `device`). PWAs were implemented
+and served locally; they were not Chrome-installed onto a guest this session.
 
 ## Milestone 1 — Brewing sessions, timer, journal
 
@@ -30,7 +32,7 @@ is still not claimed.
 | Adjustable timer, pause/resume, relaunch recovery | **Verified** | Unit tests + Chrome 390×844 smoke |
 | Persistent tasting journal with edit/search | **Verified** | Unit tests + smoke |
 | Safe export/import | **Verified** | Hostile JSON rejected; fixture labeled |
-| Storefront preserved | **Verified** | No `app/` page rewrites |
+| Storefront preserved | **Verified** | Education pages not restyled; PWA hooks only in `app/layout.tsx` |
 | Android debug APK | **Verified** | `assembleDebug`; `co.beingtea.companion` |
 
 ## Milestone 2 — Everything else this environment can finish
@@ -49,7 +51,9 @@ is still not claimed.
 | In-app about/privacy | **Verified** | Data tab; `docs/mobile-privacy.md` |
 | iOS Xcode project | **Added, not compiled** | `npx cap add ios`; `ITSAppUsesNonExemptEncryption` = false; no `xcodebuild` here |
 | Play internal testing draft | **Draft only** | `docs/play-internal-testing-draft.md` — no upload |
-| Emulator sideload | **Verified** | `adb install` of `co.beingtea.companion` on API 34; WebView UI via uiautomator; wall-clock recovery after Home |
+| Emulator sideload | **Verified 24 Sep; blocked 25 Sep** | 24 Sep: `adb install` on API 34. 25 Sep: guest stayed offline |
+| Storefront PWA | **Verified in this checkout** | Manifest + SW + 192/512 icons; storefront HTML tests; served at :3000 |
+| Companion web PWA | **Verified in this checkout** | Manifest 200 + smoke; SW registered only off-native |
 
 ### Honest limits
 
@@ -79,11 +83,11 @@ is still not claimed.
 | Check | Result |
 | --- | --- |
 | `npm run test:brew-core` | **Passed** — 24 tests |
-| Mobile web smoke | **Passed** — `node mobile/tests/smoke.mjs` at 390×844, including family-filter no-match, entry family select, notice toggle |
-| Browser walkthrough | **Passed** — yellow grandpa start/pause/resume, journal filter, Data toggle |
+| Mobile web smoke | **Passed** — 25 Sep, including PWA manifest JSON |
 | `mobile` production build | **Passed** |
-| Android `assembleDebug` | **Passed** — 4.2 MB debug APK copied to artifacts |
-| Emulator `adb install` | **Passed** — API 34 guest; uiautomator confirmed brew UI and away-recovery copy |
-| Notice after background / Doze / force-stop | **Not confirmed** — inexact alarm fallback; no shade pixels |
+| Android `assembleDebug` | **Passed** — 4.2 MB debug APK at `/opt/cursor/artifacts/being-tea-co-companion-debug.apk` |
+| Storefront `npm test` | **Passed** — 11 tests, including installable-manifest check |
+| Emulator `adb install` (25 Sep) | **Failed** — emulator-5554 stayed offline |
+| USB phone `adb install` | **No device** |
+| Chrome PWA add-to-home on guest | **Not performed** — no online Android guest |
 | iOS `xcodebuild` | **Not available** |
-| Storefront `npm test` | **Skipped** — no `app/` source changes |
