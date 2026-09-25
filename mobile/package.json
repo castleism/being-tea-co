@@ -1,0 +1,37 @@
+{
+  "name": "being-tea-co-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5174",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5174",
+    "cap:sync": "npm run build && npx cap sync",
+    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug",
+    "test:smoke": "node tests/smoke.mjs"
+  },
+  "dependencies": {
+    "@capacitor-community/keep-awake": "^7.1.0",
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/app": "^7.1.0",
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/filesystem": "^7.1.4",
+    "@capacitor/haptics": "^7.0.2",
+    "@capacitor/ios": "^7.6.9",
+    "@capacitor/local-notifications": "^7.0.7",
+    "@capacitor/preferences": "^7.0.2",
+    "@capacitor/share": "^7.0.2",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "puppeteer-core": "^24.23.0",
+    "typescript": "5.9.3",
+    "vite": "8.0.13"
+  }
+}

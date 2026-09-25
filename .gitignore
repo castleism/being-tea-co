@@ -53,3 +53,17 @@ next-env.d.ts
 /public/images/landing/studio.webp
 /image-manifests/social-s01-s18.md
 /image-manifests/social-s19-s36.md
+
+# Mobile companion
+/mobile/node_modules/
+/mobile/dist/
+/mobile/android/app/build/
+/mobile/android/build/
+/mobile/android/.gradle/
+/mobile/android/local.properties
+/mobile/android/captures/
+/mobile/android/app/.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex

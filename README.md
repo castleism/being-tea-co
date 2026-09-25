@@ -54,8 +54,31 @@ npm test
 
 - `app/` — pages, structured search metadata, and editorial content.
 - `public/images/` — the visual library used across the public site.
+- `packages/brew-core/` — brewing-session, timer, and tasting-journal logic.
+- `mobile/` — local-first Capacitor companion (web preview + Android debug).
+- `docs/mobile-roadmap.md` — mobile milestone status and blockers.
+- `docs/pwa.md` — storefront and companion Progressive Web App install notes.
 - `tests/` — rendered-route, search, disclosure, and unique-image checks.
 - `image-manifests/` — generation notes and asset provenance records.
+
+## Mobile companion
+
+The public site stays the educational storefront. It is now installable as a
+Progressive Web App (manifest + service worker) without a visual restyle.
+The companion lives in `mobile/` and uses approved starting points from
+`app/content/library.ts`. The companion web preview is also installable as a
+PWA; native notices still require the Android APK.
+
+```bash
+npm run test:brew-core
+cd mobile && npm install && npm run dev
+```
+
+Android debug APK steps, the iOS project, signing/data notes, and what is
+*not* claimed (guaranteed alarms, store listing) are in
+[mobile/README.md](mobile/README.md). Human-gated Play copy lives in
+[docs/play-internal-testing-draft.md](docs/play-internal-testing-draft.md).
+
 
 ## Publishing
 

@@ -1,0 +1,7 @@
+{
+  "name": "@being-tea-co/brew-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts"
+}

@@ -181,6 +181,17 @@ test("shop distinguishes researched candidates from active paid links", async ()
   assert.doesNotMatch(html, /rel="sponsored"/);
 });
 
+test("home declares an installable web app manifest", async () => {
+  const html = await htmlFor("/");
+  assert.match(html, /rel="manifest"/);
+  assert.match(html, /manifest\.webmanifest/);
+  assert.match(html, /serviceWorker\.register\(['"]\/sw\.js['"]\)/);
+  assert.equal(existsSync(new URL("../public/manifest.webmanifest", import.meta.url)), true);
+  assert.equal(existsSync(new URL("../public/sw.js", import.meta.url)), true);
+  assert.equal(existsSync(new URL("../public/icons/pwa-192.png", import.meta.url)), true);
+  assert.equal(existsSync(new URL("../public/icons/pwa-512.png", import.meta.url)), true);
+});
+
 test("sitemap lists every public route and robots excludes the studio", async () => {
   const [xml, robots] = await Promise.all([
     textFor("/sitemap.xml", /^application\/xml\b/i),
